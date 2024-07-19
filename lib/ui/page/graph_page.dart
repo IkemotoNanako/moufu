@@ -27,6 +27,16 @@ class GraphPage extends StatelessWidget {
           ),
         ),
       ),
+      appBar: AppBar(
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(
+              Icons.settings,
+            ),
+          ),
+        ],
+      ),
       body: SafeArea(
         child: Container(),
       ),
