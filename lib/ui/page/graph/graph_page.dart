@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moufu/ui/page/graph/can_swipe_chart.dart';
 
 class GraphPage extends StatelessWidget {
   const GraphPage({super.key});
@@ -37,8 +38,8 @@ class GraphPage extends StatelessWidget {
           ),
         ],
       ),
-      body: SafeArea(
-        child: Container(),
+      body: const SafeArea(
+        child: CanSwipeChart(),
       ),
     );
   }

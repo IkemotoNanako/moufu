@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:moufu/ui/page/graph_page.dart';
+import 'package:moufu/ui/page/graph/graph_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
