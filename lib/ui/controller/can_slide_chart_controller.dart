@@ -10,9 +10,9 @@ class CanSlideChartController extends _$CanSlideChartController {
   @override
   CanSlideChartState build() {
     final bodyWeightDataList =
-        ref.read(getBodyDataUseCaseProvider).getBodyWeight();
+        ref.watch(getBodyDataUseCaseProvider).getBodyWeight();
     final bodyFatPercentageDataList =
-        ref.read(getBodyDataUseCaseProvider).getBodyFatPercentage();
+        ref.watch(getBodyDataUseCaseProvider).getBodyFatPercentage();
     return CanSlideChartState(
       bodyWeightData: bodyWeightDataList,
       bodyFatPercentageData: bodyFatPercentageDataList,

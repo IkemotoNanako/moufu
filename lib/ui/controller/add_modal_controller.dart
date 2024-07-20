@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:moufu/application/providers/usecase_providers.dart';
 import 'package:moufu/domain/chart_model.dart';
 import 'package:moufu/ui/state/add_modal_state.dart';
@@ -16,19 +17,21 @@ class AddModalController extends _$AddModalController {
     );
   }
 
-  void changeBodyWeight(double bodyWeight) {
-    state = state.copyWith(bodyWeight: bodyWeight);
-  }
-
-  void changeBodyFatPercentage(double bodyFatPercentage) {
-    state = state.copyWith(bodyFatPercentage: bodyFatPercentage);
-  }
+  final TextEditingController bodyWeightController = TextEditingController();
+  final TextEditingController bodyFatPercentageController =
+      TextEditingController();
 
   void changeDate(DateTime date) {
     state = state.copyWith(date: date);
   }
 
   void saveData() {
+    state = state.copyWith(
+      bodyWeight: double.parse(bodyWeightController.text),
+      bodyFatPercentage: bodyFatPercentageController.text.isNotEmpty
+          ? double.parse(bodyFatPercentageController.text)
+          : null,
+    );
     ref.read(saveBodyDataUseCaseProvider).saveBodyWeight(
         BodyWeightDataModel(weight: state.bodyWeight, date: state.date));
     if (state.bodyFatPercentage != null) {
@@ -36,5 +39,6 @@ class AddModalController extends _$AddModalController {
           BodyFatPercentageDataModel(
               bodyFatPercentage: state.bodyFatPercentage!, date: state.date));
     }
+    ref.invalidate(getBodyDataUseCaseProvider);
   }
 }

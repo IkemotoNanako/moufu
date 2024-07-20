@@ -16,5 +16,5 @@ RealmRepository realmRepository(RealmRepositoryRef ref) {
 
 @riverpod
 BodyDataRepository bodyDataRepository(BodyDataRepositoryRef ref) {
-  return BodyDataRepository();
+  return BodyDataRepository(ref.read(realmRepositoryProvider).realm);
 }

@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:moufu/ui/controller/add_modal_controller.dart';
 
-class AddModal extends StatelessWidget {
+class AddModal extends ConsumerWidget {
   const AddModal({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final TextEditingController bodyWeightController = TextEditingController();
-    final TextEditingController bodyFatPercentageController =
-        TextEditingController();
+  Widget build(BuildContext context, WidgetRef ref) {
     final themeScheme = Theme.of(context).colorScheme;
+    final state = ref.watch(addModalControllerProvider);
+    final notifier = ref.watch(addModalControllerProvider.notifier);
     return Container(
       height: 280,
       decoration: BoxDecoration(
@@ -39,9 +41,15 @@ class AddModal extends StatelessWidget {
                   ),
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    if (notifier.bodyWeightController.text.isEmpty) {
+                      return;
+                    }
+                    notifier.saveData();
+                    Navigator.pop(context);
+                  },
                   child: Text(
-                    '完了',
+                    '保存',
                     style: TextStyle(
                       color: themeScheme.inversePrimary,
                       fontWeight: FontWeight.w900,
@@ -51,12 +59,30 @@ class AddModal extends StatelessWidget {
                 ),
               ],
             ),
-            Text(
-              DateFormat('MM/dd').format(DateTime.now()),
-              style: TextStyle(
+            TextButton.icon(
+              onPressed: () {
+                showDatePicker(
+                  context: context,
+                  initialDate: DateTime.now(),
+                  firstDate: DateTime(2020),
+                  lastDate: DateTime.now(),
+                ).then((value) {
+                  if (value != null) {
+                    notifier.changeDate(value);
+                  }
+                });
+              },
+              label: Text(
+                DateFormat('yyyy/MM/dd').format(state.date),
+                style: TextStyle(
+                  color: themeScheme.inversePrimary,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              icon: Icon(
+                Icons.calendar_today,
                 color: themeScheme.inversePrimary,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
               ),
             ),
             SizedBox.fromSize(size: const Size.fromHeight(8)),
@@ -69,8 +95,12 @@ class AddModal extends StatelessWidget {
                   Expanded(
                     child: TextFormField(
                       cursorColor: themeScheme.inversePrimary,
-                      controller: bodyWeightController,
+                      controller: notifier.bodyWeightController,
                       keyboardType: TextInputType.number,
+                      inputFormatters: <TextInputFormatter>[
+                        FilteringTextInputFormatter.allow(
+                            RegExp(r'^\d+(\.\d*)?')),
+                      ],
                       decoration: const InputDecoration(
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(),
@@ -95,8 +125,12 @@ class AddModal extends StatelessWidget {
                   Expanded(
                     child: TextFormField(
                       cursorColor: themeScheme.inversePrimary,
-                      controller: bodyFatPercentageController,
+                      controller: notifier.bodyFatPercentageController,
                       keyboardType: TextInputType.number,
+                      inputFormatters: <TextInputFormatter>[
+                        FilteringTextInputFormatter.allow(
+                            RegExp(r'^\d+(\.\d*)?')),
+                      ],
                       decoration: const InputDecoration(
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(),

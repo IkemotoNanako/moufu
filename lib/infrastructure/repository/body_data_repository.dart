@@ -3,8 +3,8 @@ import 'package:moufu/infrastructure/data/body_data.dart';
 import 'package:realm/realm.dart';
 
 class BodyDataRepository {
-  final _realm = Realm(Configuration.local(
-      [BodyWeightData.schema, BodyFatPercentageData.schema]));
+  final Realm _realm;
+  BodyDataRepository(this._realm);
 
   void saveBodyWeight(BodyWeightDataModel bodyDataModel) {
     _realm.write(() {
