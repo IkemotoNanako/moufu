@@ -367,7 +367,7 @@ class _AverageBodyWeightGraph extends StatelessWidget {
         gridData: const FlGridData(show: false),
         lineBarsData: [
           LineChartBarData(
-            spots: state.bodyWeightData
+            spots: state.averageBodyWeightData
                 .map((data) => FlSpot(
                     data.date.millisecondsSinceEpoch.toDouble(), data.weight))
                 .toList(),
@@ -527,7 +527,7 @@ class _AverageBodyFatPercentageGraph extends StatelessWidget {
         gridData: const FlGridData(show: false),
         lineBarsData: [
           LineChartBarData(
-            spots: state.bodyFatPercentageData
+            spots: state.averageBodyFatPercentageData
                 .map((data) => FlSpot(
                     data.date.millisecondsSinceEpoch.toDouble(),
                     data.bodyFatPercentage))

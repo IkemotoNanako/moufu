@@ -6,8 +6,10 @@ part 'can_slide_chart_state.freezed.dart';
 @freezed
 class CanSlideChartState with _$CanSlideChartState {
   const factory CanSlideChartState({
-    required List<BodyWeightData> bodyWeightData,
-    required List<BodyFatPercentageData> bodyFatPercentageData,
-    required DateRangeType rangeType,
+    @Default([]) List<BodyWeightData> bodyWeightData,
+    @Default([]) List<BodyFatPercentageData> bodyFatPercentageData,
+    @Default([]) List<BodyWeightData> averageBodyWeightData,
+    @Default([]) List<BodyFatPercentageData> averageBodyFatPercentageData,
+    @Default(DateRangeType.week) DateRangeType rangeType,
   }) = _CanSlideChartState;
 }
