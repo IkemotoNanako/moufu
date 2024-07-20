@@ -29,10 +29,10 @@ class AddModalController extends _$AddModalController {
   }
 
   void saveData() {
-    ref.read(bodyWightDataUsecaseProvider).save(
+    ref.read(saveBodyDataUseCaseProvider).saveBodyWeight(
         BodyWeightDataModel(bodyWeight: state.bodyWeight, date: state.date));
     if (state.bodyFatPercentage != null) {
-      ref.read(bodyFatPercentageDataUsecaseProvider).save(
+      ref.read(saveBodyDataUseCaseProvider).saveBodyFatPercentage(
           BodyFatPercentageDataModel(
               bodyFatPercentage: state.bodyFatPercentage!, date: state.date));
     }
