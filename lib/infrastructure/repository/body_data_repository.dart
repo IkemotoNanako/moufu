@@ -6,11 +6,21 @@ class BodyDataRepository {
   final Realm _realm;
   BodyDataRepository(this._realm);
 
-  void addRecord(BodyDataModel bodyDataModel) {
+  void saveBodyWeight(BodyWeightDataModel bodyDataModel) {
     _realm.write(() {
       _realm.add(
-        BodyData(
+        BodyWeightData(
           bodyDataModel.bodyWeight,
+          bodyDataModel.date,
+        ),
+      );
+    });
+  }
+
+  void saveBodyFatPercentage(BodyFatPercentageDataModel bodyDataModel) {
+    _realm.write(() {
+      _realm.add(
+        BodyFatPercentageData(
           bodyDataModel.bodyFatPercentage,
           bodyDataModel.date,
         ),
@@ -18,11 +28,20 @@ class BodyDataRepository {
     });
   }
 
-  List<BodyDataModel> getBodyData() {
-    final results = _realm.all<BodyData>();
+  List<BodyWeightDataModel> getBodyData() {
+    final results = _realm.all<BodyWeightData>();
     return results.map((bodyData) {
-      return BodyDataModel(
+      return BodyWeightDataModel(
         bodyWeight: bodyData.bodyWeight,
+        date: bodyData.date,
+      );
+    }).toList();
+  }
+
+  List<BodyFatPercentageDataModel> getBodyFatPercentageData() {
+    final results = _realm.all<BodyFatPercentageData>();
+    return results.map((bodyData) {
+      return BodyFatPercentageDataModel(
         bodyFatPercentage: bodyData.bodyFatPercentage,
         date: bodyData.date,
       );

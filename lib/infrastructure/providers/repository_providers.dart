@@ -8,7 +8,8 @@ part 'repository_providers.g.dart';
 
 @riverpod
 RealmRepository realmRepository(RealmRepositoryRef ref) {
-  final config = Configuration.local([BodyData.schema]);
+  final config = Configuration.local(
+      [BodyWeightData.schema, BodyFatPercentageData.schema]);
   final realm = Realm(config);
   return RealmRepository(realm);
 }

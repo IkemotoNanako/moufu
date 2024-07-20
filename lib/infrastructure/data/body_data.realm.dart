@@ -7,19 +7,17 @@ part of 'body_data.dart';
 // **************************************************************************
 
 // ignore_for_file: type=lint
-class BodyData extends _BodyData
+class BodyWeightData extends _BodyWeightData
     with RealmEntity, RealmObjectBase, RealmObject {
-  BodyData(
+  BodyWeightData(
     double bodyWeight,
-    double bodyFatPercentage,
     DateTime date,
   ) {
     RealmObjectBase.set(this, 'bodyWeight', bodyWeight);
-    RealmObjectBase.set(this, 'bodyFatPercentage', bodyFatPercentage);
     RealmObjectBase.set(this, 'date', date);
   }
 
-  BodyData._();
+  BodyWeightData._();
 
   @override
   double get bodyWeight =>
@@ -27,6 +25,71 @@ class BodyData extends _BodyData
   @override
   set bodyWeight(double value) =>
       RealmObjectBase.set(this, 'bodyWeight', value);
+
+  @override
+  DateTime get date => RealmObjectBase.get<DateTime>(this, 'date') as DateTime;
+  @override
+  set date(DateTime value) => RealmObjectBase.set(this, 'date', value);
+
+  @override
+  Stream<RealmObjectChanges<BodyWeightData>> get changes =>
+      RealmObjectBase.getChanges<BodyWeightData>(this);
+
+  @override
+  Stream<RealmObjectChanges<BodyWeightData>> changesFor(
+          [List<String>? keyPaths]) =>
+      RealmObjectBase.getChangesFor<BodyWeightData>(this, keyPaths);
+
+  @override
+  BodyWeightData freeze() => RealmObjectBase.freezeObject<BodyWeightData>(this);
+
+  EJsonValue toEJson() {
+    return <String, dynamic>{
+      'bodyWeight': bodyWeight.toEJson(),
+      'date': date.toEJson(),
+    };
+  }
+
+  static EJsonValue _toEJson(BodyWeightData value) => value.toEJson();
+  static BodyWeightData _fromEJson(EJsonValue ejson) {
+    return switch (ejson) {
+      {
+        'bodyWeight': EJsonValue bodyWeight,
+        'date': EJsonValue date,
+      } =>
+        BodyWeightData(
+          fromEJson(bodyWeight),
+          fromEJson(date),
+        ),
+      _ => raiseInvalidEJson(ejson),
+    };
+  }
+
+  static final schema = () {
+    RealmObjectBase.registerFactory(BodyWeightData._);
+    register(_toEJson, _fromEJson);
+    return SchemaObject(
+        ObjectType.realmObject, BodyWeightData, 'BodyWeightData', [
+      SchemaProperty('bodyWeight', RealmPropertyType.double),
+      SchemaProperty('date', RealmPropertyType.timestamp),
+    ]);
+  }();
+
+  @override
+  SchemaObject get objectSchema => RealmObjectBase.getSchema(this) ?? schema;
+}
+
+class BodyFatPercentageData extends _BodyFatPercentageData
+    with RealmEntity, RealmObjectBase, RealmObject {
+  BodyFatPercentageData(
+    double bodyFatPercentage,
+    DateTime date,
+  ) {
+    RealmObjectBase.set(this, 'bodyFatPercentage', bodyFatPercentage);
+    RealmObjectBase.set(this, 'date', date);
+  }
+
+  BodyFatPercentageData._();
 
   @override
   double get bodyFatPercentage =>
@@ -41,34 +104,33 @@ class BodyData extends _BodyData
   set date(DateTime value) => RealmObjectBase.set(this, 'date', value);
 
   @override
-  Stream<RealmObjectChanges<BodyData>> get changes =>
-      RealmObjectBase.getChanges<BodyData>(this);
+  Stream<RealmObjectChanges<BodyFatPercentageData>> get changes =>
+      RealmObjectBase.getChanges<BodyFatPercentageData>(this);
 
   @override
-  Stream<RealmObjectChanges<BodyData>> changesFor([List<String>? keyPaths]) =>
-      RealmObjectBase.getChangesFor<BodyData>(this, keyPaths);
+  Stream<RealmObjectChanges<BodyFatPercentageData>> changesFor(
+          [List<String>? keyPaths]) =>
+      RealmObjectBase.getChangesFor<BodyFatPercentageData>(this, keyPaths);
 
   @override
-  BodyData freeze() => RealmObjectBase.freezeObject<BodyData>(this);
+  BodyFatPercentageData freeze() =>
+      RealmObjectBase.freezeObject<BodyFatPercentageData>(this);
 
   EJsonValue toEJson() {
     return <String, dynamic>{
-      'bodyWeight': bodyWeight.toEJson(),
       'bodyFatPercentage': bodyFatPercentage.toEJson(),
       'date': date.toEJson(),
     };
   }
 
-  static EJsonValue _toEJson(BodyData value) => value.toEJson();
-  static BodyData _fromEJson(EJsonValue ejson) {
+  static EJsonValue _toEJson(BodyFatPercentageData value) => value.toEJson();
+  static BodyFatPercentageData _fromEJson(EJsonValue ejson) {
     return switch (ejson) {
       {
-        'bodyWeight': EJsonValue bodyWeight,
         'bodyFatPercentage': EJsonValue bodyFatPercentage,
         'date': EJsonValue date,
       } =>
-        BodyData(
-          fromEJson(bodyWeight),
+        BodyFatPercentageData(
           fromEJson(bodyFatPercentage),
           fromEJson(date),
         ),
@@ -77,10 +139,10 @@ class BodyData extends _BodyData
   }
 
   static final schema = () {
-    RealmObjectBase.registerFactory(BodyData._);
+    RealmObjectBase.registerFactory(BodyFatPercentageData._);
     register(_toEJson, _fromEJson);
-    return SchemaObject(ObjectType.realmObject, BodyData, 'BodyData', [
-      SchemaProperty('bodyWeight', RealmPropertyType.double),
+    return SchemaObject(ObjectType.realmObject, BodyFatPercentageData,
+        'BodyFatPercentageData', [
       SchemaProperty('bodyFatPercentage', RealmPropertyType.double),
       SchemaProperty('date', RealmPropertyType.timestamp),
     ]);

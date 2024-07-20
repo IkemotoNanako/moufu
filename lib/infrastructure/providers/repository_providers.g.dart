@@ -6,7 +6,7 @@ part of 'repository_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$realmRepositoryHash() => r'030b88144f9690add0ce290330f08fca4aa7aa20';
+String _$realmRepositoryHash() => r'2b26a4fd861fe3068194b89e58ab1e2e5ed89608';
 
 /// See also [realmRepository].
 @ProviderFor(realmRepository)
@@ -22,7 +22,7 @@ final realmRepositoryProvider = AutoDisposeProvider<RealmRepository>.internal(
 
 typedef RealmRepositoryRef = AutoDisposeProviderRef<RealmRepository>;
 String _$bodyDataRepositoryHash() =>
-    r'f8297e0a599829befd31ee89b7ddf866e9073482';
+    r'265a6d2ef014b9ce04df92110024aaa91839a584';
 
 /// See also [bodyDataRepository].
 @ProviderFor(bodyDataRepository)
