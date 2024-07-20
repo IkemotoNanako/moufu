@@ -1,5 +1,5 @@
 import 'package:moufu/application/providers/usecase_providers.dart';
-import 'package:moufu/domain/body_data_model.dart';
+import 'package:moufu/domain/chart_model.dart';
 import 'package:moufu/ui/state/add_modal_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -30,7 +30,7 @@ class AddModalController extends _$AddModalController {
 
   void saveData() {
     ref.read(saveBodyDataUseCaseProvider).saveBodyWeight(
-        BodyWeightDataModel(bodyWeight: state.bodyWeight, date: state.date));
+        BodyWeightDataModel(weight: state.bodyWeight, date: state.date));
     if (state.bodyFatPercentage != null) {
       ref.read(saveBodyDataUseCaseProvider).saveBodyFatPercentage(
           BodyFatPercentageDataModel(

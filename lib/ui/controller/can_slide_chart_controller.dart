@@ -1,3 +1,4 @@
+import 'package:moufu/application/providers/usecase_providers.dart';
 import 'package:moufu/domain/chart_model.dart';
 import 'package:moufu/ui/state/can_slide_chart_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -8,16 +9,20 @@ part 'can_slide_chart_controller.g.dart';
 class CanSlideChartController extends _$CanSlideChartController {
   @override
   CanSlideChartState build() {
+    final bodyWeightDataList =
+        ref.read(getBodyDataUseCaseProvider).getBodyWeight();
+    final bodyFatPercentageDataList =
+        ref.read(getBodyDataUseCaseProvider).getBodyFatPercentage();
     return CanSlideChartState(
-      bodyWeightData: tmpBodyWeightData,
-      bodyFatPercentageData: tmpBodyFatPercentageData,
-      averageBodyWeightData: _generateAverageBodyWeight(tmpBodyWeightData),
+      bodyWeightData: bodyWeightDataList,
+      bodyFatPercentageData: bodyFatPercentageDataList,
+      averageBodyWeightData: _generateAverageBodyWeight(bodyWeightDataList),
       averageBodyFatPercentageData:
-          _generateAverageBodyFatPercentage(tmpBodyFatPercentageData),
+          _generateAverageBodyFatPercentage(bodyFatPercentageDataList),
       rangeType: DateRangeType.week,
-      latestWeight: _getLatestBodyWeight(tmpBodyWeightData).weight,
+      latestWeight: _getLatestBodyWeight(bodyWeightDataList).weight,
       latestBodyFatPercentage:
-          _getLatestBodyFatPercentage(tmpBodyFatPercentageData)
+          _getLatestBodyFatPercentage(bodyFatPercentageDataList)
               .bodyFatPercentage,
     );
   }
@@ -26,34 +31,35 @@ class CanSlideChartController extends _$CanSlideChartController {
     state = state.copyWith(rangeType: rangeType);
   }
 
-  BodyWeightData _getLatestBodyWeight(List<BodyWeightData> bodyWeightData) {
+  BodyWeightDataModel _getLatestBodyWeight(
+      List<BodyWeightDataModel> bodyWeightData) {
     final list = bodyWeightData;
     list.sort((a, b) => b.date.compareTo(a.date));
     return list.first;
   }
 
-  BodyFatPercentageData _getLatestBodyFatPercentage(
-      List<BodyFatPercentageData> bodyFatPercentageData) {
+  BodyFatPercentageDataModel _getLatestBodyFatPercentage(
+      List<BodyFatPercentageDataModel> bodyFatPercentageData) {
     final list = bodyFatPercentageData;
     list.sort((a, b) => b.date.compareTo(a.date));
     return list.first;
   }
 
-  DateTime getEarlyBodyWeight(List<BodyWeightData> bodyWeightData) {
+  DateTime getEarlyBodyWeight(List<BodyWeightDataModel> bodyWeightData) {
     bodyWeightData.sort((a, b) => a.date.compareTo(b.date));
     return bodyWeightData.first.date;
   }
 
-  List<BodyWeightData> _generateAverageBodyWeight(
-      List<BodyWeightData> bodyWeightData) {
-    List<BodyWeightData> averageData = [];
+  List<BodyWeightDataModel> _generateAverageBodyWeight(
+      List<BodyWeightDataModel> bodyWeightData) {
+    List<BodyWeightDataModel> averageData = [];
 
     for (int i = 0; i < bodyWeightData.length; i++) {
       DateTime endDate = bodyWeightData[i].date;
       DateTime startDate = endDate.subtract(const Duration(days: 14));
 
       // 2週間前までのデータをフィルタリング
-      List<BodyWeightData> twoWeeksData = bodyWeightData
+      List<BodyWeightDataModel> twoWeeksData = bodyWeightData
           .where((data) =>
               data.date.isAfter(startDate) &&
               data.date.isBefore(endDate.add(const Duration(days: 1))))
@@ -66,22 +72,23 @@ class CanSlideChartController extends _$CanSlideChartController {
           100;
 
       // 平均データをリストに追加
-      averageData.add(BodyWeightData(date: endDate, weight: averageWeight));
+      averageData
+          .add(BodyWeightDataModel(date: endDate, weight: averageWeight));
     }
 
     return averageData;
   }
 
-  List<BodyFatPercentageData> _generateAverageBodyFatPercentage(
-      List<BodyFatPercentageData> bodyFatPercentageData) {
-    List<BodyFatPercentageData> averageData = [];
+  List<BodyFatPercentageDataModel> _generateAverageBodyFatPercentage(
+      List<BodyFatPercentageDataModel> bodyFatPercentageData) {
+    List<BodyFatPercentageDataModel> averageData = [];
 
     for (int i = 0; i < bodyFatPercentageData.length; i++) {
       DateTime endDate = bodyFatPercentageData[i].date;
       DateTime startDate = endDate.subtract(const Duration(days: 14));
 
       // 2週間前までのデータをフィルタリング
-      List<BodyFatPercentageData> twoWeeksData = bodyFatPercentageData
+      List<BodyFatPercentageDataModel> twoWeeksData = bodyFatPercentageData
           .where((data) =>
               data.date.isAfter(startDate) &&
               data.date.isBefore(endDate.add(const Duration(days: 1))))
@@ -94,34 +101,10 @@ class CanSlideChartController extends _$CanSlideChartController {
           100;
 
       // 平均データをリストに追加
-      averageData.add(BodyFatPercentageData(
+      averageData.add(BodyFatPercentageDataModel(
           date: endDate, bodyFatPercentage: averageBodyFatPercentage));
     }
 
     return averageData;
   }
 }
-
-final tmpBodyWeightData = [
-  BodyWeightData(date: DateTime(2024, 7, 11), weight: 70.2),
-  BodyWeightData(date: DateTime(2024, 7, 12), weight: 70.3),
-  BodyWeightData(date: DateTime(2024, 7, 13), weight: 70.4),
-  BodyWeightData(date: DateTime(2024, 7, 14), weight: 70.5),
-  BodyWeightData(date: DateTime(2024, 7, 18), weight: 70.9),
-  BodyWeightData(date: DateTime(2024, 7, 19), weight: 71.0),
-  BodyWeightData(date: DateTime(2024, 7, 15), weight: 70.6),
-  BodyWeightData(date: DateTime(2024, 7, 16), weight: 70.7),
-  BodyWeightData(date: DateTime(2024, 7, 17), weight: 70.8),
-];
-
-final tmpBodyFatPercentageData = [
-  BodyFatPercentageData(date: DateTime(2024, 7, 11), bodyFatPercentage: 20.2),
-  BodyFatPercentageData(date: DateTime(2024, 7, 12), bodyFatPercentage: 20.3),
-  BodyFatPercentageData(date: DateTime(2024, 7, 13), bodyFatPercentage: 20.4),
-  BodyFatPercentageData(date: DateTime(2024, 7, 17), bodyFatPercentage: 20.8),
-  BodyFatPercentageData(date: DateTime(2024, 7, 19), bodyFatPercentage: 21.0),
-  BodyFatPercentageData(date: DateTime(2024, 7, 18), bodyFatPercentage: 20.9),
-  BodyFatPercentageData(date: DateTime(2024, 7, 14), bodyFatPercentage: 20.5),
-  BodyFatPercentageData(date: DateTime(2024, 7, 15), bodyFatPercentage: 20.6),
-  BodyFatPercentageData(date: DateTime(2024, 7, 16), bodyFatPercentage: 20.7),
-];

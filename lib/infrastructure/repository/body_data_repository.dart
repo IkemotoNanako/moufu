@@ -1,4 +1,4 @@
-import 'package:moufu/domain/body_data_model.dart';
+import 'package:moufu/domain/chart_model.dart';
 import 'package:moufu/infrastructure/data/body_data.dart';
 import 'package:realm/realm.dart';
 
@@ -10,7 +10,7 @@ class BodyDataRepository {
     _realm.write(() {
       _realm.add(
         BodyWeightData(
-          bodyDataModel.bodyWeight,
+          bodyDataModel.weight,
           bodyDataModel.date,
         ),
       );
@@ -32,7 +32,7 @@ class BodyDataRepository {
     final results = _realm.all<BodyWeightData>();
     return results.map((bodyData) {
       return BodyWeightDataModel(
-        bodyWeight: bodyData.bodyWeight,
+        weight: bodyData.bodyWeight,
         date: bodyData.date,
       );
     }).toList();

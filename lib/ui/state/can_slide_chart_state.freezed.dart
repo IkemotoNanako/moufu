@@ -16,12 +16,13 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$CanSlideChartState {
-  List<BodyWeightData> get bodyWeightData => throw _privateConstructorUsedError;
-  List<BodyFatPercentageData> get bodyFatPercentageData =>
+  List<BodyWeightDataModel> get bodyWeightData =>
       throw _privateConstructorUsedError;
-  List<BodyWeightData> get averageBodyWeightData =>
+  List<BodyFatPercentageDataModel> get bodyFatPercentageData =>
       throw _privateConstructorUsedError;
-  List<BodyFatPercentageData> get averageBodyFatPercentageData =>
+  List<BodyWeightDataModel> get averageBodyWeightData =>
+      throw _privateConstructorUsedError;
+  List<BodyFatPercentageDataModel> get averageBodyFatPercentageData =>
       throw _privateConstructorUsedError;
   DateRangeType get rangeType => throw _privateConstructorUsedError;
   double get latestWeight => throw _privateConstructorUsedError;
@@ -39,10 +40,10 @@ abstract class $CanSlideChartStateCopyWith<$Res> {
       _$CanSlideChartStateCopyWithImpl<$Res, CanSlideChartState>;
   @useResult
   $Res call(
-      {List<BodyWeightData> bodyWeightData,
-      List<BodyFatPercentageData> bodyFatPercentageData,
-      List<BodyWeightData> averageBodyWeightData,
-      List<BodyFatPercentageData> averageBodyFatPercentageData,
+      {List<BodyWeightDataModel> bodyWeightData,
+      List<BodyFatPercentageDataModel> bodyFatPercentageData,
+      List<BodyWeightDataModel> averageBodyWeightData,
+      List<BodyFatPercentageDataModel> averageBodyFatPercentageData,
       DateRangeType rangeType,
       double latestWeight,
       double latestBodyFatPercentage});
@@ -73,19 +74,19 @@ class _$CanSlideChartStateCopyWithImpl<$Res, $Val extends CanSlideChartState>
       bodyWeightData: null == bodyWeightData
           ? _value.bodyWeightData
           : bodyWeightData // ignore: cast_nullable_to_non_nullable
-              as List<BodyWeightData>,
+              as List<BodyWeightDataModel>,
       bodyFatPercentageData: null == bodyFatPercentageData
           ? _value.bodyFatPercentageData
           : bodyFatPercentageData // ignore: cast_nullable_to_non_nullable
-              as List<BodyFatPercentageData>,
+              as List<BodyFatPercentageDataModel>,
       averageBodyWeightData: null == averageBodyWeightData
           ? _value.averageBodyWeightData
           : averageBodyWeightData // ignore: cast_nullable_to_non_nullable
-              as List<BodyWeightData>,
+              as List<BodyWeightDataModel>,
       averageBodyFatPercentageData: null == averageBodyFatPercentageData
           ? _value.averageBodyFatPercentageData
           : averageBodyFatPercentageData // ignore: cast_nullable_to_non_nullable
-              as List<BodyFatPercentageData>,
+              as List<BodyFatPercentageDataModel>,
       rangeType: null == rangeType
           ? _value.rangeType
           : rangeType // ignore: cast_nullable_to_non_nullable
@@ -111,10 +112,10 @@ abstract class _$$CanSlideChartStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {List<BodyWeightData> bodyWeightData,
-      List<BodyFatPercentageData> bodyFatPercentageData,
-      List<BodyWeightData> averageBodyWeightData,
-      List<BodyFatPercentageData> averageBodyFatPercentageData,
+      {List<BodyWeightDataModel> bodyWeightData,
+      List<BodyFatPercentageDataModel> bodyFatPercentageData,
+      List<BodyWeightDataModel> averageBodyWeightData,
+      List<BodyFatPercentageDataModel> averageBodyFatPercentageData,
       DateRangeType rangeType,
       double latestWeight,
       double latestBodyFatPercentage});
@@ -143,19 +144,19 @@ class __$$CanSlideChartStateImplCopyWithImpl<$Res>
       bodyWeightData: null == bodyWeightData
           ? _value._bodyWeightData
           : bodyWeightData // ignore: cast_nullable_to_non_nullable
-              as List<BodyWeightData>,
+              as List<BodyWeightDataModel>,
       bodyFatPercentageData: null == bodyFatPercentageData
           ? _value._bodyFatPercentageData
           : bodyFatPercentageData // ignore: cast_nullable_to_non_nullable
-              as List<BodyFatPercentageData>,
+              as List<BodyFatPercentageDataModel>,
       averageBodyWeightData: null == averageBodyWeightData
           ? _value._averageBodyWeightData
           : averageBodyWeightData // ignore: cast_nullable_to_non_nullable
-              as List<BodyWeightData>,
+              as List<BodyWeightDataModel>,
       averageBodyFatPercentageData: null == averageBodyFatPercentageData
           ? _value._averageBodyFatPercentageData
           : averageBodyFatPercentageData // ignore: cast_nullable_to_non_nullable
-              as List<BodyFatPercentageData>,
+              as List<BodyFatPercentageDataModel>,
       rangeType: null == rangeType
           ? _value.rangeType
           : rangeType // ignore: cast_nullable_to_non_nullable
@@ -176,10 +177,11 @@ class __$$CanSlideChartStateImplCopyWithImpl<$Res>
 
 class _$CanSlideChartStateImpl implements _CanSlideChartState {
   const _$CanSlideChartStateImpl(
-      {final List<BodyWeightData> bodyWeightData = const [],
-      final List<BodyFatPercentageData> bodyFatPercentageData = const [],
-      final List<BodyWeightData> averageBodyWeightData = const [],
-      final List<BodyFatPercentageData> averageBodyFatPercentageData = const [],
+      {final List<BodyWeightDataModel> bodyWeightData = const [],
+      final List<BodyFatPercentageDataModel> bodyFatPercentageData = const [],
+      final List<BodyWeightDataModel> averageBodyWeightData = const [],
+      final List<BodyFatPercentageDataModel> averageBodyFatPercentageData =
+          const [],
       this.rangeType = DateRangeType.week,
       this.latestWeight = 70,
       this.latestBodyFatPercentage = 40})
@@ -188,39 +190,39 @@ class _$CanSlideChartStateImpl implements _CanSlideChartState {
         _averageBodyWeightData = averageBodyWeightData,
         _averageBodyFatPercentageData = averageBodyFatPercentageData;
 
-  final List<BodyWeightData> _bodyWeightData;
+  final List<BodyWeightDataModel> _bodyWeightData;
   @override
   @JsonKey()
-  List<BodyWeightData> get bodyWeightData {
+  List<BodyWeightDataModel> get bodyWeightData {
     if (_bodyWeightData is EqualUnmodifiableListView) return _bodyWeightData;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_bodyWeightData);
   }
 
-  final List<BodyFatPercentageData> _bodyFatPercentageData;
+  final List<BodyFatPercentageDataModel> _bodyFatPercentageData;
   @override
   @JsonKey()
-  List<BodyFatPercentageData> get bodyFatPercentageData {
+  List<BodyFatPercentageDataModel> get bodyFatPercentageData {
     if (_bodyFatPercentageData is EqualUnmodifiableListView)
       return _bodyFatPercentageData;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_bodyFatPercentageData);
   }
 
-  final List<BodyWeightData> _averageBodyWeightData;
+  final List<BodyWeightDataModel> _averageBodyWeightData;
   @override
   @JsonKey()
-  List<BodyWeightData> get averageBodyWeightData {
+  List<BodyWeightDataModel> get averageBodyWeightData {
     if (_averageBodyWeightData is EqualUnmodifiableListView)
       return _averageBodyWeightData;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_averageBodyWeightData);
   }
 
-  final List<BodyFatPercentageData> _averageBodyFatPercentageData;
+  final List<BodyFatPercentageDataModel> _averageBodyFatPercentageData;
   @override
   @JsonKey()
-  List<BodyFatPercentageData> get averageBodyFatPercentageData {
+  List<BodyFatPercentageDataModel> get averageBodyFatPercentageData {
     if (_averageBodyFatPercentageData is EqualUnmodifiableListView)
       return _averageBodyFatPercentageData;
     // ignore: implicit_dynamic_type
@@ -286,22 +288,22 @@ class _$CanSlideChartStateImpl implements _CanSlideChartState {
 
 abstract class _CanSlideChartState implements CanSlideChartState {
   const factory _CanSlideChartState(
-      {final List<BodyWeightData> bodyWeightData,
-      final List<BodyFatPercentageData> bodyFatPercentageData,
-      final List<BodyWeightData> averageBodyWeightData,
-      final List<BodyFatPercentageData> averageBodyFatPercentageData,
+      {final List<BodyWeightDataModel> bodyWeightData,
+      final List<BodyFatPercentageDataModel> bodyFatPercentageData,
+      final List<BodyWeightDataModel> averageBodyWeightData,
+      final List<BodyFatPercentageDataModel> averageBodyFatPercentageData,
       final DateRangeType rangeType,
       final double latestWeight,
       final double latestBodyFatPercentage}) = _$CanSlideChartStateImpl;
 
   @override
-  List<BodyWeightData> get bodyWeightData;
+  List<BodyWeightDataModel> get bodyWeightData;
   @override
-  List<BodyFatPercentageData> get bodyFatPercentageData;
+  List<BodyFatPercentageDataModel> get bodyFatPercentageData;
   @override
-  List<BodyWeightData> get averageBodyWeightData;
+  List<BodyWeightDataModel> get averageBodyWeightData;
   @override
-  List<BodyFatPercentageData> get averageBodyFatPercentageData;
+  List<BodyFatPercentageDataModel> get averageBodyFatPercentageData;
   @override
   DateRangeType get rangeType;
   @override

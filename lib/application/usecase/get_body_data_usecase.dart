@@ -1,4 +1,4 @@
-import 'package:moufu/domain/body_data_model.dart';
+import 'package:moufu/domain/chart_model.dart';
 import 'package:moufu/infrastructure/repository/body_data_repository.dart';
 
 class GetBodyDataUseCase {

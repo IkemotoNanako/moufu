@@ -1,15 +1,16 @@
-class BodyWeightData {
+class BodyWeightDataModel {
   final DateTime date;
   final double weight;
 
-  BodyWeightData({required this.date, required this.weight});
+  BodyWeightDataModel({required this.date, required this.weight});
 }
 
-class BodyFatPercentageData {
+class BodyFatPercentageDataModel {
   final DateTime date;
   final double bodyFatPercentage;
 
-  BodyFatPercentageData({required this.date, required this.bodyFatPercentage});
+  BodyFatPercentageDataModel(
+      {required this.date, required this.bodyFatPercentage});
 }
 
 enum DateRangeType {
