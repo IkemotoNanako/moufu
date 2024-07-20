@@ -35,19 +35,16 @@ class CanSlideChartController extends _$CanSlideChartController {
       List<BodyWeightDataModel> bodyWeightData) {
     final list = bodyWeightData;
     list.sort((a, b) => b.date.compareTo(a.date));
-    return list.first;
+    return list.firstOrNull ??
+        BodyWeightDataModel(date: DateTime.now(), weight: 70);
   }
 
   BodyFatPercentageDataModel _getLatestBodyFatPercentage(
       List<BodyFatPercentageDataModel> bodyFatPercentageData) {
     final list = bodyFatPercentageData;
     list.sort((a, b) => b.date.compareTo(a.date));
-    return list.first;
-  }
-
-  DateTime getEarlyBodyWeight(List<BodyWeightDataModel> bodyWeightData) {
-    bodyWeightData.sort((a, b) => a.date.compareTo(b.date));
-    return bodyWeightData.first.date;
+    return list.firstOrNull ??
+        BodyFatPercentageDataModel(date: DateTime.now(), bodyFatPercentage: 30);
   }
 
   List<BodyWeightDataModel> _generateAverageBodyWeight(
