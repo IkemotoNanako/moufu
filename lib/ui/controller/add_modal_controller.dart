@@ -11,8 +11,6 @@ class AddModalController extends _$AddModalController {
   @override
   AddModalState build() {
     return AddModalState(
-      bodyWeight: 0,
-      bodyFatPercentage: null,
       date: DateTime.now(),
     );
   }
@@ -23,21 +21,43 @@ class AddModalController extends _$AddModalController {
 
   void changeDate(DateTime date) {
     state = state.copyWith(date: date);
+    final bodyWeightDataList =
+        ref.read(getBodyDataUseCaseProvider).getBodyWeight();
+    final bodyFatPercentageDataList =
+        ref.read(getBodyDataUseCaseProvider).getBodyFatPercentage();
+
+    try {
+      final bodyWeightData = bodyWeightDataList
+          .firstWhere((element) => element.date == state.date);
+      bodyWeightController.text = bodyWeightData.weight.toString();
+    } catch (e) {
+      bodyWeightController.text = '';
+    }
+
+    try {
+      final bodyFatPercentageData = bodyFatPercentageDataList
+          .firstWhere((element) => element.date == state.date);
+      bodyFatPercentageController.text =
+          bodyFatPercentageData.bodyFatPercentage.toString();
+    } catch (e) {
+      bodyFatPercentageController.text = '';
+    }
   }
 
   void saveData() {
-    state = state.copyWith(
-      bodyWeight: double.parse(bodyWeightController.text),
-      bodyFatPercentage: bodyFatPercentageController.text.isNotEmpty
-          ? double.parse(bodyFatPercentageController.text)
-          : null,
-    );
     ref.read(saveBodyDataUseCaseProvider).saveBodyWeight(
-        BodyWeightDataModel(weight: state.bodyWeight, date: state.date));
-    if (state.bodyFatPercentage != null) {
+          BodyWeightDataModel(
+            weight: double.parse(bodyWeightController.text),
+            date: DateTime(state.date.year, state.date.month, state.date.day),
+          ),
+        );
+    if (bodyFatPercentageController.text.isNotEmpty) {
       ref.read(saveBodyDataUseCaseProvider).saveBodyFatPercentage(
-          BodyFatPercentageDataModel(
-              bodyFatPercentage: state.bodyFatPercentage!, date: state.date));
+            BodyFatPercentageDataModel(
+              bodyFatPercentage: double.parse(bodyFatPercentageController.text),
+              date: DateTime(state.date.year, state.date.month, state.date.day),
+            ),
+          );
     }
     ref.invalidate(getBodyDataUseCaseProvider);
   }

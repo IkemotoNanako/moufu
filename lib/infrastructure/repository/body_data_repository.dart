@@ -28,7 +28,7 @@ class BodyDataRepository {
     });
   }
 
-  List<BodyWeightDataModel> getBodyData() {
+  List<BodyWeightDataModel> getBodyWeight() {
     final results = _realm.all<BodyWeightData>();
     return results.map((bodyData) {
       return BodyWeightDataModel(
@@ -46,5 +46,25 @@ class BodyDataRepository {
         date: bodyData.date,
       );
     }).toList();
+  }
+
+  void deleteBodyWeight(BodyWeightDataModel bodyDataModel) {
+    _realm.write(() {
+      final results = _realm.all<BodyWeightData>();
+      final bodyData = results.firstWhere(
+        (element) => element.date == bodyDataModel.date,
+      );
+      _realm.delete(bodyData);
+    });
+  }
+
+  void deleteBodyFatPercentage(BodyFatPercentageDataModel bodyDataModel) {
+    _realm.write(() {
+      final results = _realm.all<BodyFatPercentageData>();
+      final bodyData = results.firstWhere(
+        (element) => element.date == bodyDataModel.date,
+      );
+      _realm.delete(bodyData);
+    });
   }
 }

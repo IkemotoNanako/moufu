@@ -7,7 +7,7 @@ class GetBodyDataUseCase {
   GetBodyDataUseCase(this._bodyDataRepository);
 
   List<BodyWeightDataModel> getBodyWeight() {
-    return _bodyDataRepository.getBodyData();
+    return _bodyDataRepository.getBodyWeight();
   }
 
   List<BodyFatPercentageDataModel> getBodyFatPercentage() {

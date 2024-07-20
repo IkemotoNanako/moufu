@@ -232,6 +232,7 @@ class _DateSlideTitles extends StatelessWidget {
             .toDouble(),
         maxX: DateTime(
                 DateTime.now().year, DateTime.now().month, DateTime.now().day)
+            .add(const Duration(days: 1))
             .millisecondsSinceEpoch
             .toDouble(),
         lineBarsData: [
@@ -362,6 +363,7 @@ class _AverageBodyWeightGraph extends StatelessWidget {
             .toDouble(),
         maxX: DateTime(
                 DateTime.now().year, DateTime.now().month, DateTime.now().day)
+            .add(const Duration(days: 1))
             .millisecondsSinceEpoch
             .toDouble(),
         gridData: const FlGridData(show: false),
@@ -438,6 +440,7 @@ class _DailyBodyWeightGraph extends StatelessWidget {
             .toDouble(),
         maxX: DateTime(
                 DateTime.now().year, DateTime.now().month, DateTime.now().day)
+            .add(const Duration(days: 1))
             .millisecondsSinceEpoch
             .toDouble(),
         gridData: const FlGridData(show: false),
@@ -524,6 +527,7 @@ class _AverageBodyFatPercentageGraph extends StatelessWidget {
             .toDouble(),
         maxX: DateTime(
                 DateTime.now().year, DateTime.now().month, DateTime.now().day)
+            .add(const Duration(days: 1))
             .millisecondsSinceEpoch
             .toDouble(),
         gridData: const FlGridData(show: false),
@@ -601,6 +605,7 @@ class _DailyBodyFatPercentageGraph extends StatelessWidget {
             .toDouble(),
         maxX: DateTime(
                 DateTime.now().year, DateTime.now().month, DateTime.now().day)
+            .add(const Duration(days: 1))
             .millisecondsSinceEpoch
             .toDouble(),
         gridData: const FlGridData(show: false),

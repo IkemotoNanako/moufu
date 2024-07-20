@@ -1,3 +1,4 @@
+import 'package:moufu/application/usecase/delete_body_data_usecase.dart';
 import 'package:moufu/application/usecase/get_body_data_usecase.dart';
 import 'package:moufu/application/usecase/save_body_data_usecase.dart';
 import 'package:moufu/infrastructure/providers/repository_providers.dart';
@@ -13,4 +14,9 @@ GetBodyDataUseCase getBodyDataUseCase(GetBodyDataUseCaseRef ref) {
 @riverpod
 SaveBodyDataUseCase saveBodyDataUseCase(SaveBodyDataUseCaseRef ref) {
   return SaveBodyDataUseCase(ref.read(bodyDataRepositoryProvider));
+}
+
+@riverpod
+DeleteBodyDataUseCase deleteBodyDataUseCase(DeleteBodyDataUseCaseRef ref) {
+  return DeleteBodyDataUseCase(ref.read(bodyDataRepositoryProvider));
 }

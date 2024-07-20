@@ -40,5 +40,23 @@ final saveBodyDataUseCaseProvider =
 );
 
 typedef SaveBodyDataUseCaseRef = AutoDisposeProviderRef<SaveBodyDataUseCase>;
+String _$deleteBodyDataUseCaseHash() =>
+    r'7bbdef9a2b6f124a05392658f4cb9d039ddda366';
+
+/// See also [deleteBodyDataUseCase].
+@ProviderFor(deleteBodyDataUseCase)
+final deleteBodyDataUseCaseProvider =
+    AutoDisposeProvider<DeleteBodyDataUseCase>.internal(
+  deleteBodyDataUseCase,
+  name: r'deleteBodyDataUseCaseProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$deleteBodyDataUseCaseHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef DeleteBodyDataUseCaseRef
+    = AutoDisposeProviderRef<DeleteBodyDataUseCase>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
