@@ -40,7 +40,7 @@ class CanSlideChart extends ConsumerWidget {
               active: state.rangeType == DateRangeType.threeMonths,
             ),
             _RangeSelectButton(
-              text: '1年',
+              text: '6ヶ月',
               onPressed: () {
                 notifier.changeRangeType(DateRangeType.year);
               },

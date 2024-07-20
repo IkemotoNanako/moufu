@@ -21,13 +21,13 @@ enum DateRangeType {
   get range {
     switch (this) {
       case DateRangeType.week:
-        return 7;
+        return 7 * 2;
       case DateRangeType.month:
-        return 30;
+        return 30 * 2;
       case DateRangeType.threeMonths:
-        return 90;
+        return 90 * 2;
       case DateRangeType.year:
-        return 365;
+        return 360;
     }
   }
 
