@@ -602,6 +602,7 @@ class _DailyBodyFatPercentageGraph extends StatelessWidget {
             .millisecondsSinceEpoch
             .toDouble(),
         gridData: const FlGridData(show: false),
+        lineTouchData: const LineTouchData(enabled: false),
         lineBarsData: [
           LineChartBarData(
             spots: state.bodyFatPercentageData
