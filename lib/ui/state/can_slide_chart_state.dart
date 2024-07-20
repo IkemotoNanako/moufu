@@ -1,4 +1,4 @@
-import 'package:moufu/domain/chart_data.dart';
+import 'package:moufu/domain/chart_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'can_slide_chart_state.freezed.dart';

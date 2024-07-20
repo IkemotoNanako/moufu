@@ -1,4 +1,4 @@
-import 'package:moufu/domain/chart_data.dart';
+import 'package:moufu/domain/chart_model.dart';
 import 'package:moufu/ui/state/can_slide_chart_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
