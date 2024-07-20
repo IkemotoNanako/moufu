@@ -538,7 +538,7 @@ class _AverageBodyFatPercentageGraph extends StatelessWidget {
                     data.date.millisecondsSinceEpoch.toDouble(),
                     data.bodyFatPercentage))
                 .toList(),
-            color: themeScheme.primaryContainer,
+            color: themeScheme.tertiaryContainer,
             isCurved: true,
             barWidth: 2,
             dotData: const FlDotData(show: false),
@@ -627,7 +627,7 @@ class _DailyBodyFatPercentageGraph extends StatelessWidget {
                   radius: 4,
                   color: state.rangeType == DateRangeType.year
                       ? Colors.transparent
-                      : themeScheme.primaryContainer,
+                      : themeScheme.tertiaryContainer,
                 );
               },
             ),
