@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "341711922368",
+    "project_id": "moufu-dd365",
+    "storage_bucket": "moufu-dd365.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:341711922368:android:2fe4ed018b1e3e22ca7925",
+        "android_client_info": {
+          "package_name": "com.midori.moufu"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsfz770wlLwgO707TRqDYkFMtTKtUU_LQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

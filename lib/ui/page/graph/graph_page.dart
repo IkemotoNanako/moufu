@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:moufu/ui/page/graph/add_modal.dart';
 import 'package:moufu/ui/page/graph/can_slide_chart.dart';
+import 'package:moufu/ui/page/setting/setting_page.dart';
 import 'package:moufu/ui/utils/get_addmod_id.dart';
 
 class GraphPage extends StatelessWidget {
@@ -56,7 +57,12 @@ class GraphPage extends StatelessWidget {
       appBar: AppBar(
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const SettingPage()),
+              );
+            },
             icon: const Icon(
               Icons.settings,
             ),

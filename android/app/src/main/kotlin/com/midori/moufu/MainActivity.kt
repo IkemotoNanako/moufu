@@ -1,4 +1,4 @@
-package com.example.moufu
+package com.midori.moufu
 
 import io.flutter.embedding.android.FlutterActivity
 
