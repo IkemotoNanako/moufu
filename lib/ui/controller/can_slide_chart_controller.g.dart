@@ -7,7 +7,7 @@ part of 'can_slide_chart_controller.dart';
 // **************************************************************************
 
 String _$canSlideChartControllerHash() =>
-    r'5973949947f59225b9f42149c5595915d596e72e';
+    r'173409fe8911325fd5d626efe2f2efbec80b06d8';
 
 /// See also [CanSlideChartController].
 @ProviderFor(CanSlideChartController)

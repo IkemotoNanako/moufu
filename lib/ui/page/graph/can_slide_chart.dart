@@ -161,8 +161,8 @@ class _BodyWeightSideTitles extends StatelessWidget {
           ),
         ),
         borderData: FlBorderData(show: false),
-        maxY: 80,
-        minY: 20,
+        maxY: ((state.latestWeight + 30) / 5).ceil() * 5,
+        minY: ((state.latestWeight - 10) / 5).ceil() * 5,
       ),
     );
   }
@@ -299,8 +299,8 @@ class _BodyFatPercentageSlideTitles extends StatelessWidget {
           ),
         ),
         borderData: FlBorderData(show: false),
-        maxY: 50,
-        minY: 15,
+        maxY: ((state.latestBodyFatPercentage + 20) / 5).ceil() * 5,
+        minY: ((state.latestBodyFatPercentage - 10) / 5).ceil() * 5,
       ),
     );
   }
