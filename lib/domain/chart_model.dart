@@ -36,9 +36,9 @@ enum DateRangeType {
       case DateRangeType.week:
         return 1;
       case DateRangeType.month:
-        return 4;
+        return 6;
       case DateRangeType.threeMonths:
-        return 10;
+        return 20;
       case DateRangeType.year:
         return 30;
     }
