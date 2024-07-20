@@ -63,10 +63,16 @@ class GraphPage extends StatelessWidget {
           ),
         ],
       ),
-      body: const SafeArea(
+      body: SafeArea(
         child: Column(
           children: [
-            Expanded(
+            Container(
+              width: myBanner.size.width.toDouble(),
+              height: myBanner.size.height.toDouble(),
+              alignment: Alignment.center,
+              child: AdWidget(ad: myBanner),
+            ),
+            const Expanded(
               child: Padding(
                 padding: EdgeInsets.only(top: 8, bottom: 32, right: 20),
                 child: CanSlideChart(),
