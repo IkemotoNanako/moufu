@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:moufu/ui/page/graph/can_swipe_chart.dart';
+import 'package:moufu/ui/page/graph/can_slide_chart.dart';
 
 class GraphPage extends StatelessWidget {
   const GraphPage({super.key});
@@ -15,12 +15,14 @@ class GraphPage extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(50)),
         ),
         onPressed: () {},
+        foregroundColor: themeScheme.onPrimary,
         child: const Icon(Icons.add),
       ),
       bottomNavigationBar: BottomAppBar(
+        height: 55,
         color: themeScheme.primaryContainer,
         surfaceTintColor: Colors.transparent,
-        notchMargin: 11,
+        notchMargin: 10,
         shape: const AutomaticNotchedShape(
           RoundedRectangleBorder(),
           StadiumBorder(
@@ -39,7 +41,10 @@ class GraphPage extends StatelessWidget {
         ],
       ),
       body: const SafeArea(
-        child: CanSwipeChart(),
+        child: Padding(
+          padding: EdgeInsets.only(top: 8, bottom: 32, right: 20),
+          child: CanSlideChart(),
+        ),
       ),
     );
   }
