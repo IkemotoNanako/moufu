@@ -59,7 +59,7 @@ class CanSlideChart extends ConsumerWidget {
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: SizedBox(
-                  width: MediaQuery.of(context).size.width * 3,
+                  width: MediaQuery.of(context).size.width * 2,
                   child: Stack(
                     children: [
                       _DateSlideTitles(state: state),
@@ -455,7 +455,9 @@ class _DailyBodyWeightGraph extends StatelessWidget {
               getDotPainter: (spot, percent, barData, index) {
                 return FlDotCirclePainter(
                   radius: 4,
-                  color: themeScheme.inversePrimary,
+                  color: state.rangeType == DateRangeType.year
+                      ? Colors.transparent
+                      : themeScheme.inversePrimary,
                 );
               },
             ),
@@ -618,7 +620,9 @@ class _DailyBodyFatPercentageGraph extends StatelessWidget {
               getDotPainter: (spot, percent, barData, index) {
                 return FlDotCirclePainter(
                   radius: 4,
-                  color: themeScheme.primaryContainer,
+                  color: state.rangeType == DateRangeType.year
+                      ? Colors.transparent
+                      : themeScheme.primaryContainer,
                 );
               },
             ),
