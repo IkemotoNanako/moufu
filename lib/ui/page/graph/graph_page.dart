@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moufu/ui/page/graph/add_modal.dart';
 import 'package:moufu/ui/page/graph/can_slide_chart.dart';
 
 class GraphPage extends StatelessWidget {
@@ -14,7 +15,13 @@ class GraphPage extends StatelessWidget {
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(50)),
         ),
-        onPressed: () {},
+        onPressed: () {
+          showModalBottomSheet(
+              context: context,
+              builder: (context) {
+                return const AddModal();
+              });
+        },
         foregroundColor: themeScheme.onPrimary,
         child: const Icon(Icons.add),
       ),
