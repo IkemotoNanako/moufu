@@ -94,6 +94,8 @@ class AddModal extends ConsumerWidget {
                   const SizedBox(width: 8),
                   Expanded(
                     child: TextFormField(
+                      autofocus: true,
+                      textInputAction: TextInputAction.next,
                       cursorColor: themeScheme.inversePrimary,
                       controller: notifier.bodyWeightController,
                       keyboardType: TextInputType.number,
@@ -124,6 +126,7 @@ class AddModal extends ConsumerWidget {
                   const SizedBox(width: 8),
                   Expanded(
                     child: TextFormField(
+                      textInputAction: TextInputAction.done,
                       cursorColor: themeScheme.inversePrimary,
                       controller: notifier.bodyFatPercentageController,
                       keyboardType: TextInputType.number,

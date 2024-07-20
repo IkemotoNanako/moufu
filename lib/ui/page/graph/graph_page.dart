@@ -9,6 +9,7 @@ class GraphPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeScheme = Theme.of(context).colorScheme;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         backgroundColor: themeScheme.inversePrimary,
@@ -17,9 +18,15 @@ class GraphPage extends StatelessWidget {
         ),
         onPressed: () {
           showModalBottomSheet(
+              isScrollControlled: true,
               context: context,
               builder: (context) {
-                return const AddModal();
+                return Padding(
+                  padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).viewInsets.bottom,
+                  ),
+                  child: const AddModal(),
+                );
               });
         },
         foregroundColor: themeScheme.onPrimary,
