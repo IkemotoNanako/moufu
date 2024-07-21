@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:moufu/ui/page/graph/add_modal.dart';
 import 'package:moufu/ui/page/graph/can_slide_chart.dart';
 import 'package:moufu/ui/page/setting/setting_page.dart';
-import 'package:moufu/ui/utils/get_addmod_id.dart';
+// import 'package:moufu/ui/utils/get_addmod_id.dart';
 
 class GraphPage extends StatelessWidget {
   const GraphPage({super.key});
@@ -11,7 +11,7 @@ class GraphPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeScheme = Theme.of(context).colorScheme;
-    final bannerId = getAdBannerUnitId();
+    // final bannerId = getAdBannerUnitId();
     // BannerAd myBanner = BannerAd(
     //     adUnitId: bannerId,
     //     size: AdSize.banner,
