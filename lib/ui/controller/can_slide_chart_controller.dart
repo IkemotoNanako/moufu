@@ -29,6 +29,26 @@ class CanSlideChartController extends _$CanSlideChartController {
     );
   }
 
+  void update() {
+    final bodyWeightDataList =
+        ref.read(getBodyDataUseCaseProvider).getBodyWeight();
+    final bodyFatPercentageDataList =
+        ref.read(getBodyDataUseCaseProvider).getBodyFatPercentage();
+    bodyWeightDataList.sort((a, b) => a.date.compareTo(b.date));
+    bodyFatPercentageDataList.sort((a, b) => a.date.compareTo(b.date));
+    state = state.copyWith(
+      bodyWeightData: bodyWeightDataList,
+      bodyFatPercentageData: bodyFatPercentageDataList,
+      averageBodyWeightData: _generateAverageBodyWeight(bodyWeightDataList),
+      averageBodyFatPercentageData:
+          _generateAverageBodyFatPercentage(bodyFatPercentageDataList),
+      latestWeight: _getLatestBodyWeight(bodyWeightDataList).weight,
+      latestBodyFatPercentage:
+          _getLatestBodyFatPercentage(bodyFatPercentageDataList)
+              .bodyFatPercentage,
+    );
+  }
+
   void changeRangeType(DateRangeType rangeType) {
     state = state.copyWith(rangeType: rangeType);
   }

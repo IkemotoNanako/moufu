@@ -319,6 +319,8 @@ class _AverageBodyWeightGraph extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var sortableData = List.from(state.averageBodyWeightData);
+    sortableData.sort((a, b) => a.date.compareTo(b.date));
     final themeScheme = Theme.of(context).colorScheme;
     return LineChart(
       LineChartData(
@@ -372,12 +374,12 @@ class _AverageBodyWeightGraph extends StatelessWidget {
         gridData: const FlGridData(show: false),
         lineBarsData: [
           LineChartBarData(
-            spots: state.averageBodyWeightData
+            spots: sortableData
                 .map((data) => FlSpot(
                     data.date.millisecondsSinceEpoch.toDouble(), data.weight))
                 .toList(),
             color: themeScheme.inversePrimary,
-            isCurved: true,
+            isCurved: false,
             barWidth: 2,
             dotData: const FlDotData(show: false),
           ),
@@ -454,7 +456,7 @@ class _DailyBodyWeightGraph extends StatelessWidget {
                     data.date.millisecondsSinceEpoch.toDouble(), data.weight))
                 .toList(),
             color: Colors.transparent,
-            isCurved: true,
+            isCurved: false,
             barWidth: 2,
             dotData: FlDotData(
               show: true,
@@ -480,9 +482,10 @@ class _AverageBodyFatPercentageGraph extends StatelessWidget {
   });
 
   final CanSlideChartState state;
-
   @override
   Widget build(BuildContext context) {
+    var sortableData = List.from(state.averageBodyFatPercentageData);
+    sortableData.sort((a, b) => a.date.compareTo(b.date));
     final themeScheme = Theme.of(context).colorScheme;
     return LineChart(
       LineChartData(
@@ -536,13 +539,13 @@ class _AverageBodyFatPercentageGraph extends StatelessWidget {
         gridData: const FlGridData(show: false),
         lineBarsData: [
           LineChartBarData(
-            spots: state.averageBodyFatPercentageData
+            spots: sortableData
                 .map((data) => FlSpot(
                     data.date.millisecondsSinceEpoch.toDouble(),
                     data.bodyFatPercentage))
                 .toList(),
             color: themeScheme.tertiaryContainer,
-            isCurved: true,
+            isCurved: false,
             barWidth: 2,
             dotData: const FlDotData(show: false),
           ),

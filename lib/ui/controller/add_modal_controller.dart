@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:moufu/application/providers/usecase_providers.dart';
 import 'package:moufu/domain/chart_model.dart';
+import 'package:moufu/ui/controller/can_slide_chart_controller.dart';
 import 'package:moufu/ui/state/add_modal_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -34,7 +35,9 @@ class AddModalController extends _$AddModalController {
           ));
       state = state.copyWith(oldBodyWeightDataModel: bodyWeightData);
       bodyWeightController.text = bodyWeightData.weight.toString();
-    } catch (e) {}
+    } catch (e) {
+      state = state.copyWith(oldBodyWeightDataModel: null);
+    }
 
     try {
       final bodyFatPercentageData = bodyFatPercentageDataList.firstWhere(
@@ -49,7 +52,9 @@ class AddModalController extends _$AddModalController {
           state.copyWith(oldBodyFatPercentageDataModel: bodyFatPercentageData);
       bodyFatPercentageController.text =
           bodyFatPercentageData.bodyFatPercentage.toString();
-    } catch (e) {}
+    } catch (e) {
+      state = state.copyWith(oldBodyFatPercentageDataModel: null);
+    }
   }
 
   void saveData() {
@@ -69,6 +74,7 @@ class AddModalController extends _$AddModalController {
             oldData: state.oldBodyFatPercentageDataModel,
           );
     }
+    ref.read(canSlideChartControllerProvider.notifier).update();
     ref.invalidate(getBodyDataUseCaseProvider);
   }
 }
