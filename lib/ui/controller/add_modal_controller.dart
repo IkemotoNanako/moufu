@@ -34,9 +34,7 @@ class AddModalController extends _$AddModalController {
           ));
       state = state.copyWith(oldBodyWeightDataModel: bodyWeightData);
       bodyWeightController.text = bodyWeightData.weight.toString();
-    } catch (e) {
-      bodyWeightController.text = '';
-    }
+    } catch (e) {}
 
     try {
       final bodyFatPercentageData = bodyFatPercentageDataList.firstWhere(
@@ -51,9 +49,7 @@ class AddModalController extends _$AddModalController {
           state.copyWith(oldBodyFatPercentageDataModel: bodyFatPercentageData);
       bodyFatPercentageController.text =
           bodyFatPercentageData.bodyFatPercentage.toString();
-    } catch (e) {
-      bodyFatPercentageController.text = '';
-    }
+    } catch (e) {}
   }
 
   void saveData() {
