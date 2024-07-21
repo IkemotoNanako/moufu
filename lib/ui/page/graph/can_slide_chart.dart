@@ -57,6 +57,7 @@ class CanSlideChart extends ConsumerWidget {
               _BodyWeightSideTitles(state: state),
               _BodyFatPercentageSlideTitles(state: state),
               SingleChildScrollView(
+                reverse: true,
                 scrollDirection: Axis.horizontal,
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width * 2,
