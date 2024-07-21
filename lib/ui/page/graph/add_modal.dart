@@ -108,7 +108,6 @@ class AddModal extends ConsumerWidget {
                       textInputAction: TextInputAction.next,
                       cursorColor: themeScheme.inversePrimary,
                       controller: notifier.bodyWeightController,
-                      keyboardType: TextInputType.number,
                       inputFormatters: <TextInputFormatter>[
                         FilteringTextInputFormatter.allow(
                             RegExp(r'^\d+(\.\d*)?')),
@@ -139,7 +138,6 @@ class AddModal extends ConsumerWidget {
                       textInputAction: TextInputAction.done,
                       cursorColor: themeScheme.inversePrimary,
                       controller: notifier.bodyFatPercentageController,
-                      keyboardType: TextInputType.number,
                       inputFormatters: <TextInputFormatter>[
                         FilteringTextInputFormatter.allow(
                             RegExp(r'^\d+(\.\d*)?')),
