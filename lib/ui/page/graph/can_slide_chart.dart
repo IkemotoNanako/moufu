@@ -148,6 +148,7 @@ class _BodyWeightSideTitles extends StatelessWidget {
             sideTitles: SideTitles(
               showTitles: true,
               reservedSize: 40,
+              interval: 5,
               getTitlesWidget: (value, meta) {
                 return SideTitleWidget(
                   axisSide: meta.axisSide,
@@ -161,7 +162,7 @@ class _BodyWeightSideTitles extends StatelessWidget {
           ),
         ),
         borderData: FlBorderData(show: false),
-        maxY: ((state.latestWeight + 30) / 5).ceil() * 5,
+        maxY: ((state.latestWeight + 15) / 5).ceil() * 5,
         minY: ((state.latestWeight - 10) / 5).ceil() * 5,
       ),
     );
@@ -277,6 +278,7 @@ class _BodyFatPercentageSlideTitles extends StatelessWidget {
             sideTitles: SideTitles(
               showTitles: true,
               reservedSize: 40,
+              interval: 2,
               getTitlesWidget: (value, meta) {
                 return SideTitleWidget(
                   axisSide: meta.axisSide,
@@ -300,8 +302,8 @@ class _BodyFatPercentageSlideTitles extends StatelessWidget {
           ),
         ),
         borderData: FlBorderData(show: false),
-        maxY: ((state.latestBodyFatPercentage + 20) / 5).ceil() * 5,
-        minY: ((state.latestBodyFatPercentage - 10) / 5).ceil() * 5,
+        maxY: ((state.latestBodyFatPercentage + 5) / 2).ceil() * 2,
+        minY: ((state.latestBodyFatPercentage - 5) / 2).ceil() * 2,
       ),
     );
   }
@@ -349,7 +351,7 @@ class _AverageBodyWeightGraph extends StatelessWidget {
           ),
         ),
         borderData: FlBorderData(show: false),
-        maxY: ((state.latestWeight + 30) / 5).ceil() * 5,
+        maxY: ((state.latestWeight + 15) / 5).ceil() * 5,
         minY: ((state.latestWeight - 10) / 5).ceil() * 5,
         baselineX: DateTime(
                 DateTime.now().year, DateTime.now().month, DateTime.now().day)
@@ -426,7 +428,7 @@ class _DailyBodyWeightGraph extends StatelessWidget {
           ),
         ),
         borderData: FlBorderData(show: false),
-        maxY: ((state.latestWeight + 30) / 5).ceil() * 5,
+        maxY: ((state.latestWeight + 15) / 5).ceil() * 5,
         minY: ((state.latestWeight - 10) / 5).ceil() * 5,
         baselineX: DateTime(
                 DateTime.now().year, DateTime.now().month, DateTime.now().day)
@@ -513,8 +515,8 @@ class _AverageBodyFatPercentageGraph extends StatelessWidget {
           ),
         ),
         borderData: FlBorderData(show: false),
-        maxY: ((state.latestBodyFatPercentage + 20) / 5).ceil() * 5,
-        minY: ((state.latestBodyFatPercentage - 10) / 5).ceil() * 5,
+        maxY: ((state.latestBodyFatPercentage + 5) / 2).ceil() * 2,
+        minY: ((state.latestBodyFatPercentage - 5) / 2).ceil() * 2,
         baselineX: DateTime(
                 DateTime.now().year, DateTime.now().month, DateTime.now().day)
             .subtract(Duration(days: state.rangeType.range))
@@ -591,8 +593,8 @@ class _DailyBodyFatPercentageGraph extends StatelessWidget {
           ),
         ),
         borderData: FlBorderData(show: false),
-        maxY: ((state.latestBodyFatPercentage + 20) / 5).ceil() * 5,
-        minY: ((state.latestBodyFatPercentage - 10) / 5).ceil() * 5,
+        maxY: ((state.latestBodyFatPercentage + 5) / 2).ceil() * 2,
+        minY: ((state.latestBodyFatPercentage - 5) / 2).ceil() * 2,
         baselineX: DateTime(
                 DateTime.now().year, DateTime.now().month, DateTime.now().day)
             .subtract(Duration(days: state.rangeType.range))
