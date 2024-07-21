@@ -69,7 +69,7 @@ class GraphPage extends StatelessWidget {
           ),
         ],
       ),
-      body: SafeArea(
+      body: const SafeArea(
         child: Column(
           children: [
             // Container(
@@ -78,9 +78,9 @@ class GraphPage extends StatelessWidget {
             //   alignment: Alignment.center,
             //   child: AdWidget(ad: myBanner),
             // ),
-            const Expanded(
+            Expanded(
               child: Padding(
-                padding: EdgeInsets.only(top: 8, bottom: 32, right: 20),
+                padding: EdgeInsets.only(top: 8, bottom: 32),
                 child: CanSlideChart(),
               ),
             ),
