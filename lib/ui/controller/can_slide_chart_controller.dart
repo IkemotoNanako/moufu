@@ -13,6 +13,8 @@ class CanSlideChartController extends _$CanSlideChartController {
         ref.watch(getBodyDataUseCaseProvider).getBodyWeight();
     final bodyFatPercentageDataList =
         ref.watch(getBodyDataUseCaseProvider).getBodyFatPercentage();
+    bodyWeightDataList.sort((a, b) => a.date.compareTo(b.date));
+    bodyFatPercentageDataList.sort((a, b) => a.date.compareTo(b.date));
     return CanSlideChartState(
       bodyWeightData: bodyWeightDataList,
       bodyFatPercentageData: bodyFatPercentageDataList,

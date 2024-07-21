@@ -17,6 +17,10 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$AddModalState {
   DateTime get date => throw _privateConstructorUsedError;
+  BodyWeightDataModel? get oldBodyWeightDataModel =>
+      throw _privateConstructorUsedError;
+  BodyFatPercentageDataModel? get oldBodyFatPercentageDataModel =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AddModalStateCopyWith<AddModalState> get copyWith =>
@@ -29,7 +33,10 @@ abstract class $AddModalStateCopyWith<$Res> {
           AddModalState value, $Res Function(AddModalState) then) =
       _$AddModalStateCopyWithImpl<$Res, AddModalState>;
   @useResult
-  $Res call({DateTime date});
+  $Res call(
+      {DateTime date,
+      BodyWeightDataModel? oldBodyWeightDataModel,
+      BodyFatPercentageDataModel? oldBodyFatPercentageDataModel});
 }
 
 /// @nodoc
@@ -46,12 +53,22 @@ class _$AddModalStateCopyWithImpl<$Res, $Val extends AddModalState>
   @override
   $Res call({
     Object? date = null,
+    Object? oldBodyWeightDataModel = freezed,
+    Object? oldBodyFatPercentageDataModel = freezed,
   }) {
     return _then(_value.copyWith(
       date: null == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      oldBodyWeightDataModel: freezed == oldBodyWeightDataModel
+          ? _value.oldBodyWeightDataModel
+          : oldBodyWeightDataModel // ignore: cast_nullable_to_non_nullable
+              as BodyWeightDataModel?,
+      oldBodyFatPercentageDataModel: freezed == oldBodyFatPercentageDataModel
+          ? _value.oldBodyFatPercentageDataModel
+          : oldBodyFatPercentageDataModel // ignore: cast_nullable_to_non_nullable
+              as BodyFatPercentageDataModel?,
     ) as $Val);
   }
 }
@@ -64,7 +81,10 @@ abstract class _$$AddModelStateImplCopyWith<$Res>
       __$$AddModelStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({DateTime date});
+  $Res call(
+      {DateTime date,
+      BodyWeightDataModel? oldBodyWeightDataModel,
+      BodyFatPercentageDataModel? oldBodyFatPercentageDataModel});
 }
 
 /// @nodoc
@@ -79,12 +99,22 @@ class __$$AddModelStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? date = null,
+    Object? oldBodyWeightDataModel = freezed,
+    Object? oldBodyFatPercentageDataModel = freezed,
   }) {
     return _then(_$AddModelStateImpl(
       date: null == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      oldBodyWeightDataModel: freezed == oldBodyWeightDataModel
+          ? _value.oldBodyWeightDataModel
+          : oldBodyWeightDataModel // ignore: cast_nullable_to_non_nullable
+              as BodyWeightDataModel?,
+      oldBodyFatPercentageDataModel: freezed == oldBodyFatPercentageDataModel
+          ? _value.oldBodyFatPercentageDataModel
+          : oldBodyFatPercentageDataModel // ignore: cast_nullable_to_non_nullable
+              as BodyFatPercentageDataModel?,
     ));
   }
 }
@@ -92,14 +122,21 @@ class __$$AddModelStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$AddModelStateImpl implements _AddModelState {
-  const _$AddModelStateImpl({required this.date});
+  const _$AddModelStateImpl(
+      {required this.date,
+      this.oldBodyWeightDataModel,
+      this.oldBodyFatPercentageDataModel});
 
   @override
   final DateTime date;
+  @override
+  final BodyWeightDataModel? oldBodyWeightDataModel;
+  @override
+  final BodyFatPercentageDataModel? oldBodyFatPercentageDataModel;
 
   @override
   String toString() {
-    return 'AddModalState(date: $date)';
+    return 'AddModalState(date: $date, oldBodyWeightDataModel: $oldBodyWeightDataModel, oldBodyFatPercentageDataModel: $oldBodyFatPercentageDataModel)';
   }
 
   @override
@@ -107,11 +144,18 @@ class _$AddModelStateImpl implements _AddModelState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AddModelStateImpl &&
-            (identical(other.date, date) || other.date == date));
+            (identical(other.date, date) || other.date == date) &&
+            (identical(other.oldBodyWeightDataModel, oldBodyWeightDataModel) ||
+                other.oldBodyWeightDataModel == oldBodyWeightDataModel) &&
+            (identical(other.oldBodyFatPercentageDataModel,
+                    oldBodyFatPercentageDataModel) ||
+                other.oldBodyFatPercentageDataModel ==
+                    oldBodyFatPercentageDataModel));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, date);
+  int get hashCode => Object.hash(
+      runtimeType, date, oldBodyWeightDataModel, oldBodyFatPercentageDataModel);
 
   @JsonKey(ignore: true)
   @override
@@ -121,11 +165,18 @@ class _$AddModelStateImpl implements _AddModelState {
 }
 
 abstract class _AddModelState implements AddModalState {
-  const factory _AddModelState({required final DateTime date}) =
+  const factory _AddModelState(
+          {required final DateTime date,
+          final BodyWeightDataModel? oldBodyWeightDataModel,
+          final BodyFatPercentageDataModel? oldBodyFatPercentageDataModel}) =
       _$AddModelStateImpl;
 
   @override
   DateTime get date;
+  @override
+  BodyWeightDataModel? get oldBodyWeightDataModel;
+  @override
+  BodyFatPercentageDataModel? get oldBodyFatPercentageDataModel;
   @override
   @JsonKey(ignore: true)
   _$$AddModelStateImplCopyWith<_$AddModelStateImpl> get copyWith =>

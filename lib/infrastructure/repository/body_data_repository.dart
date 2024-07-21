@@ -62,7 +62,10 @@ class BodyDataRepository {
     _realm.write(() {
       final results = _realm.all<BodyFatPercentageData>();
       final bodyData = results.firstWhere(
-        (element) => element.date == bodyDataModel.date,
+        (element) =>
+            DateTime(element.date.year, element.date.month, element.date.day) ==
+            DateTime(bodyDataModel.date.year, bodyDataModel.date.month,
+                bodyDataModel.date.day),
       );
       _realm.delete(bodyData);
     });

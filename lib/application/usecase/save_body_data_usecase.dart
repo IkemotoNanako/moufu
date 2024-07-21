@@ -6,28 +6,21 @@ class SaveBodyDataUseCase {
 
   SaveBodyDataUseCase(this._bodyDataRepository);
 
-  void saveBodyWeight(BodyWeightDataModel bodyData) {
-    final bodyWeightDataList = _bodyDataRepository.getBodyWeight();
-    try {
-      final bodyWeightData = bodyWeightDataList
-          .firstWhere((element) => element.date == bodyData.date);
-      _bodyDataRepository.deleteBodyWeight(bodyWeightData);
-      _bodyDataRepository.saveBodyWeight(bodyData);
-    } catch (e) {
-      _bodyDataRepository.saveBodyWeight(bodyData);
+  void saveBodyWeight(
+      {required BodyWeightDataModel bodyData,
+      required BodyWeightDataModel? oldData}) {
+    if (oldData != null) {
+      _bodyDataRepository.deleteBodyWeight(oldData);
     }
+    _bodyDataRepository.saveBodyWeight(bodyData);
   }
 
-  void saveBodyFatPercentage(BodyFatPercentageDataModel bodyData) {
-    final bodyFatPercentageDataList =
-        _bodyDataRepository.getBodyFatPercentageData();
-    try {
-      final bodyFatPercentageData = bodyFatPercentageDataList
-          .firstWhere((element) => element.date == bodyData.date);
-      _bodyDataRepository.deleteBodyFatPercentage(bodyFatPercentageData);
-      _bodyDataRepository.saveBodyFatPercentage(bodyData);
-    } catch (e) {
-      _bodyDataRepository.saveBodyFatPercentage(bodyData);
+  void saveBodyFatPercentage(
+      {required BodyFatPercentageDataModel bodyData,
+      required BodyFatPercentageDataModel? oldData}) {
+    if (oldData != null) {
+      _bodyDataRepository.deleteBodyFatPercentage(oldData);
     }
+    _bodyDataRepository.saveBodyFatPercentage(bodyData);
   }
 }
