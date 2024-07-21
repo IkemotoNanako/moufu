@@ -62,11 +62,21 @@ class AddModal extends ConsumerWidget {
             TextButton.icon(
               onPressed: () {
                 showDatePicker(
-                  context: context,
-                  initialDate: DateTime.now(),
-                  firstDate: DateTime(2020),
-                  lastDate: DateTime.now(),
-                ).then((value) {
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime(2020),
+                    lastDate: DateTime.now(),
+                    builder: (context, child) => Theme(
+                          data: ThemeData.light().copyWith(
+                            colorScheme: ColorScheme.light(
+                              primary: themeScheme.inversePrimary,
+                              onPrimary: themeScheme.onPrimary,
+                              surface: themeScheme.surface,
+                            ),
+                            dialogBackgroundColor: themeScheme.surface,
+                          ),
+                          child: child!,
+                        )).then((value) {
                   if (value != null) {
                     notifier.changeDate(value);
                   }
