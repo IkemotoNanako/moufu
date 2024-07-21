@@ -41,48 +41,49 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDM2Jg8-mbzqmy44zCEmzWjkvGQ7LXt6ks',
-    appId: '1:341711922368:web:699ce26ef0879d07ca7925',
-    messagingSenderId: '341711922368',
-    projectId: 'moufu-dd365',
-    authDomain: 'moufu-dd365.firebaseapp.com',
-    storageBucket: 'moufu-dd365.appspot.com',
-    measurementId: 'G-KQMTZ0DGDV',
+    apiKey: 'AIzaSyDkXqG4ix1lKs1Ght-kdwCdQwDb7Qx8x00',
+    appId: '1:334403602876:web:4d1dae84a5250f32c403b9',
+    messagingSenderId: '334403602876',
+    projectId: 'moufu-8e50f',
+    authDomain: 'moufu-8e50f.firebaseapp.com',
+    storageBucket: 'moufu-8e50f.appspot.com',
+    measurementId: 'G-KMPW398VT4',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAsfz770wlLwgO707TRqDYkFMtTKtUU_LQ',
-    appId: '1:341711922368:android:2fe4ed018b1e3e22ca7925',
-    messagingSenderId: '341711922368',
-    projectId: 'moufu-dd365',
-    storageBucket: 'moufu-dd365.appspot.com',
+    apiKey: 'AIzaSyDuGRvBs-K6yUG01I5cTRKCOzQVCtvNHhw',
+    appId: '1:334403602876:android:04b793a1003512cbc403b9',
+    messagingSenderId: '334403602876',
+    projectId: 'moufu-8e50f',
+    storageBucket: 'moufu-8e50f.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCWLFr9dNGiiV_6H9gwbq3Lqip4fB9lSjo',
-    appId: '1:341711922368:ios:6bf522c64f5c1ff6ca7925',
-    messagingSenderId: '341711922368',
-    projectId: 'moufu-dd365',
-    storageBucket: 'moufu-dd365.appspot.com',
+    apiKey: 'AIzaSyAG8NNfKd9c5PE9f9ZxOnxKVEB1Nq9BkZc',
+    appId: '1:334403602876:ios:f7c4ed16cca320d3c403b9',
+    messagingSenderId: '334403602876',
+    projectId: 'moufu-8e50f',
+    storageBucket: 'moufu-8e50f.appspot.com',
     iosBundleId: 'com.midori.moufu',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyCWLFr9dNGiiV_6H9gwbq3Lqip4fB9lSjo',
-    appId: '1:341711922368:ios:6bf522c64f5c1ff6ca7925',
-    messagingSenderId: '341711922368',
-    projectId: 'moufu-dd365',
-    storageBucket: 'moufu-dd365.appspot.com',
+    apiKey: 'AIzaSyAG8NNfKd9c5PE9f9ZxOnxKVEB1Nq9BkZc',
+    appId: '1:334403602876:ios:f7c4ed16cca320d3c403b9',
+    messagingSenderId: '334403602876',
+    projectId: 'moufu-8e50f',
+    storageBucket: 'moufu-8e50f.appspot.com',
     iosBundleId: 'com.midori.moufu',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyDM2Jg8-mbzqmy44zCEmzWjkvGQ7LXt6ks',
-    appId: '1:341711922368:web:cb9d63553be5ecc3ca7925',
-    messagingSenderId: '341711922368',
-    projectId: 'moufu-dd365',
-    authDomain: 'moufu-dd365.firebaseapp.com',
-    storageBucket: 'moufu-dd365.appspot.com',
-    measurementId: 'G-4PZE4SM7D4',
+    apiKey: 'AIzaSyDkXqG4ix1lKs1Ght-kdwCdQwDb7Qx8x00',
+    appId: '1:334403602876:web:d0ffb4898ab2bf1ac403b9',
+    messagingSenderId: '334403602876',
+    projectId: 'moufu-8e50f',
+    authDomain: 'moufu-8e50f.firebaseapp.com',
+    storageBucket: 'moufu-8e50f.appspot.com',
+    measurementId: 'G-C5KC033BWD',
   );
+
 }
