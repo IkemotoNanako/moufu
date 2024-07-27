@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-// import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:moufu/ui/page/graph/add_modal.dart';
 import 'package:moufu/ui/page/graph/can_slide_chart.dart';
 import 'package:moufu/ui/page/setting/setting_page.dart';
-// import 'package:moufu/ui/utils/get_addmod_id.dart';
+import 'package:moufu/ui/utils/get_addmod_id.dart';
 
 class GraphPage extends StatelessWidget {
   const GraphPage({super.key});
@@ -11,13 +11,13 @@ class GraphPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeScheme = Theme.of(context).colorScheme;
-    // final bannerId = getAdBannerUnitId();
-    // BannerAd myBanner = BannerAd(
-    //     adUnitId: bannerId,
-    //     size: AdSize.banner,
-    //     request: const AdRequest(),
-    //     listener: const BannerAdListener());
-    // myBanner.load();
+    final bannerId = getAdBannerUnitId();
+    BannerAd myBanner = BannerAd(
+        adUnitId: bannerId,
+        size: AdSize.banner,
+        request: const AdRequest(),
+        listener: const BannerAdListener());
+    myBanner.load();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -69,16 +69,16 @@ class GraphPage extends StatelessWidget {
           ),
         ],
       ),
-      body: const SafeArea(
+      body: SafeArea(
         child: Column(
           children: [
-            // Container(
-            //   width: myBanner.size.width.toDouble(),
-            //   height: myBanner.size.height.toDouble(),
-            //   alignment: Alignment.center,
-            //   child: AdWidget(ad: myBanner),
-            // ),
-            Expanded(
+            Container(
+              width: myBanner.size.width.toDouble(),
+              height: myBanner.size.height.toDouble(),
+              alignment: Alignment.center,
+              child: AdWidget(ad: myBanner),
+            ),
+            const Expanded(
               child: Padding(
                 padding: EdgeInsets.only(top: 8, bottom: 32),
                 child: CanSlideChart(),
