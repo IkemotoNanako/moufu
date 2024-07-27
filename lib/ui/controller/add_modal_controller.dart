@@ -20,12 +20,12 @@ class AddModalController extends _$AddModalController {
   final TextEditingController bodyFatPercentageController =
       TextEditingController();
 
-  void changeDate(DateTime date) {
+  Future<void> changeDate(DateTime date) async {
     state = state.copyWith(date: DateTime(date.year, date.month, date.day));
     final bodyWeightDataList =
-        ref.read(getBodyDataUseCaseProvider).getBodyWeight();
+        await ref.read(getBodyDataUseCaseProvider).getBodyWeight();
     final bodyFatPercentageDataList =
-        ref.read(getBodyDataUseCaseProvider).getBodyFatPercentage();
+        await ref.read(getBodyDataUseCaseProvider).getBodyFatPercentage();
 
     try {
       final bodyWeightData = bodyWeightDataList.firstWhere((element) =>
@@ -57,24 +57,24 @@ class AddModalController extends _$AddModalController {
     }
   }
 
-  void saveData() {
-    ref.read(saveBodyDataUseCaseProvider).saveBodyWeight(
+  Future<void> saveData() async {
+    await ref.read(saveBodyDataUseCaseProvider).saveBodyWeight(
           bodyData: BodyWeightDataModel(
             weight: double.parse(bodyWeightController.text),
-            date: DateTime(state.date.year, state.date.month, state.date.day),
+            date: state.date,
           ),
           oldData: state.oldBodyWeightDataModel,
         );
     if (bodyFatPercentageController.text.isNotEmpty) {
-      ref.read(saveBodyDataUseCaseProvider).saveBodyFatPercentage(
+      await ref.read(saveBodyDataUseCaseProvider).saveBodyFatPercentage(
             bodyData: BodyFatPercentageDataModel(
               bodyFatPercentage: double.parse(bodyFatPercentageController.text),
-              date: DateTime(state.date.year, state.date.month, state.date.day),
+              date: state.date,
             ),
             oldData: state.oldBodyFatPercentageDataModel,
           );
     }
-    ref.read(canSlideChartControllerProvider.notifier).update();
+    await ref.read(canSlideChartControllerProvider.notifier).updateData();
     ref.invalidate(getBodyDataUseCaseProvider);
   }
 }

@@ -1,4 +1,5 @@
 import 'package:moufu/infrastructure/data/body_data.dart';
+import 'package:moufu/infrastructure/repository/health_repository.dart';
 import 'package:moufu/infrastructure/repository/realm_repository.dart';
 import 'package:moufu/infrastructure/repository/body_data_repository.dart';
 import 'package:realm/realm.dart';
@@ -17,4 +18,9 @@ RealmRepository realmRepository(RealmRepositoryRef ref) {
 @riverpod
 BodyDataRepository bodyDataRepository(BodyDataRepositoryRef ref) {
   return BodyDataRepository(ref.read(realmRepositoryProvider).realm);
+}
+
+@riverpod
+HealthRepository healthRepository(HealthRepositoryRef ref) {
+  return HealthRepository();
 }

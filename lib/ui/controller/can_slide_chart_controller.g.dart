@@ -7,11 +7,11 @@ part of 'can_slide_chart_controller.dart';
 // **************************************************************************
 
 String _$canSlideChartControllerHash() =>
-    r'41fb648cb74ae035e8eb4450d0c47088a0e39192';
+    r'fe5fc16fdd24a83e8bbd0dabbd68acb1bb8cda0e';
 
 /// See also [CanSlideChartController].
 @ProviderFor(CanSlideChartController)
-final canSlideChartControllerProvider = AutoDisposeNotifierProvider<
+final canSlideChartControllerProvider = AutoDisposeAsyncNotifierProvider<
     CanSlideChartController, CanSlideChartState>.internal(
   CanSlideChartController.new,
   name: r'canSlideChartControllerProvider',
@@ -22,6 +22,7 @@ final canSlideChartControllerProvider = AutoDisposeNotifierProvider<
   allTransitiveDependencies: null,
 );
 
-typedef _$CanSlideChartController = AutoDisposeNotifier<CanSlideChartState>;
+typedef _$CanSlideChartController
+    = AutoDisposeAsyncNotifier<CanSlideChartState>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

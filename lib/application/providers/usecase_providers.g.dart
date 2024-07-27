@@ -7,7 +7,7 @@ part of 'usecase_providers.dart';
 // **************************************************************************
 
 String _$getBodyDataUseCaseHash() =>
-    r'02770ffc579342dffb973014c770e088d8696703';
+    r'2df22709d43afa0fd6315aa88ae78b94441f39c7';
 
 /// See also [getBodyDataUseCase].
 @ProviderFor(getBodyDataUseCase)
@@ -58,5 +58,21 @@ final deleteBodyDataUseCaseProvider =
 
 typedef DeleteBodyDataUseCaseRef
     = AutoDisposeProviderRef<DeleteBodyDataUseCase>;
+String _$permissionUsecaseHash() => r'b7906b6da106a3c8e4864d23ccc3892e14edf89e';
+
+/// See also [permissionUsecase].
+@ProviderFor(permissionUsecase)
+final permissionUsecaseProvider =
+    AutoDisposeProvider<PermissionUsecase>.internal(
+  permissionUsecase,
+  name: r'permissionUsecaseProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$permissionUsecaseHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef PermissionUsecaseRef = AutoDisposeProviderRef<PermissionUsecase>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

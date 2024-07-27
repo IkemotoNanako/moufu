@@ -41,12 +41,14 @@ class AddModal extends ConsumerWidget {
                   ),
                 ),
                 TextButton(
-                  onPressed: () {
+                  onPressed: () async {
                     if (notifier.bodyWeightController.text.isEmpty) {
                       return;
                     }
-                    notifier.saveData();
-                    Navigator.pop(context);
+                    await notifier.saveData();
+                    if (context.mounted) {
+                      Navigator.pop(context);
+                    }
                   },
                   child: Text(
                     '保存',

@@ -13,69 +13,82 @@ class CanSlideChart extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(canSlideChartControllerProvider);
     final notifier = ref.watch(canSlideChartControllerProvider.notifier);
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+    return state.when(
+      data: (data) {
+        return Column(
           children: [
-            _RangeSelectButton(
-              text: '1週間',
-              onPressed: () {
-                notifier.changeRangeType(DateRangeType.week);
-              },
-              active: state.rangeType == DateRangeType.week,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _RangeSelectButton(
+                  text: '1週間',
+                  onPressed: () {
+                    notifier.changeRangeType(DateRangeType.week);
+                  },
+                  active: data.rangeType == DateRangeType.week,
+                ),
+                _RangeSelectButton(
+                  text: '1ヶ月',
+                  onPressed: () {
+                    notifier.changeRangeType(DateRangeType.month);
+                  },
+                  active: data.rangeType == DateRangeType.month,
+                ),
+                _RangeSelectButton(
+                  text: '3ヶ月',
+                  onPressed: () {
+                    notifier.changeRangeType(DateRangeType.threeMonths);
+                  },
+                  active: data.rangeType == DateRangeType.threeMonths,
+                ),
+                _RangeSelectButton(
+                  text: '6ヶ月',
+                  onPressed: () {
+                    notifier.changeRangeType(DateRangeType.year);
+                  },
+                  active: data.rangeType == DateRangeType.year,
+                ),
+              ],
             ),
-            _RangeSelectButton(
-              text: '1ヶ月',
-              onPressed: () {
-                notifier.changeRangeType(DateRangeType.month);
-              },
-              active: state.rangeType == DateRangeType.month,
+            SizedBox.fromSize(
+              size: const Size.fromHeight(16),
             ),
-            _RangeSelectButton(
-              text: '3ヶ月',
-              onPressed: () {
-                notifier.changeRangeType(DateRangeType.threeMonths);
-              },
-              active: state.rangeType == DateRangeType.threeMonths,
-            ),
-            _RangeSelectButton(
-              text: '6ヶ月',
-              onPressed: () {
-                notifier.changeRangeType(DateRangeType.year);
-              },
-              active: state.rangeType == DateRangeType.year,
+            Expanded(
+              child: Stack(
+                children: [
+                  _BodyWeightSideTitles(state: data),
+                  _BodyFatPercentageSlideTitles(state: data),
+                  SingleChildScrollView(
+                    reverse: true,
+                    scrollDirection: Axis.horizontal,
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width * 2,
+                      child: Stack(
+                        children: [
+                          _DateSlideTitles(state: data),
+                          _AverageBodyWeightGraph(state: data),
+                          _DailyBodyWeightGraph(state: data),
+                          _AverageBodyFatPercentageGraph(state: data),
+                          _DailyBodyFatPercentageGraph(state: data)
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
+        );
+      },
+      error: (_, __) => Center(
+        child: TextButton(
+          onPressed: notifier.build,
+          child: const Text('リトライ'),
         ),
-        SizedBox.fromSize(
-          size: const Size.fromHeight(16),
-        ),
-        Expanded(
-          child: Stack(
-            children: [
-              _BodyWeightSideTitles(state: state),
-              _BodyFatPercentageSlideTitles(state: state),
-              SingleChildScrollView(
-                reverse: true,
-                scrollDirection: Axis.horizontal,
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width * 2,
-                  child: Stack(
-                    children: [
-                      _DateSlideTitles(state: state),
-                      _AverageBodyWeightGraph(state: state),
-                      _DailyBodyWeightGraph(state: state),
-                      _AverageBodyFatPercentageGraph(state: state),
-                      _DailyBodyFatPercentageGraph(state: state)
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
+      ),
+      loading: () => const Center(
+        child: CircularProgressIndicator(),
+      ),
     );
   }
 }

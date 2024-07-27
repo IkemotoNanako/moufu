@@ -1,6 +1,8 @@
 import 'package:moufu/application/providers/usecase_providers.dart';
 import 'package:moufu/domain/chart_model.dart';
 import 'package:moufu/ui/state/can_slide_chart_state.dart';
+import 'package:moufu/ui/utils/get_average_data.dart';
+import 'package:moufu/ui/utils/get_latest_data.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'can_slide_chart_controller.g.dart';
@@ -8,122 +10,58 @@ part 'can_slide_chart_controller.g.dart';
 @riverpod
 class CanSlideChartController extends _$CanSlideChartController {
   @override
-  CanSlideChartState build() {
+  FutureOr<CanSlideChartState> build() async {
+    await ref.watch(permissionUsecaseProvider).checkAndRequestPermissions();
+
     final bodyWeightDataList =
-        ref.watch(getBodyDataUseCaseProvider).getBodyWeight();
+        await ref.watch(getBodyDataUseCaseProvider).getBodyWeight();
     final bodyFatPercentageDataList =
-        ref.watch(getBodyDataUseCaseProvider).getBodyFatPercentage();
+        await ref.watch(getBodyDataUseCaseProvider).getBodyFatPercentage();
+
     bodyWeightDataList.sort((a, b) => a.date.compareTo(b.date));
     bodyFatPercentageDataList.sort((a, b) => a.date.compareTo(b.date));
+
     return CanSlideChartState(
       bodyWeightData: bodyWeightDataList,
       bodyFatPercentageData: bodyFatPercentageDataList,
-      averageBodyWeightData: _generateAverageBodyWeight(bodyWeightDataList),
+      averageBodyWeightData: generateAverageBodyWeight(bodyWeightDataList),
       averageBodyFatPercentageData:
-          _generateAverageBodyFatPercentage(bodyFatPercentageDataList),
+          generateAverageBodyFatPercentage(bodyFatPercentageDataList),
       rangeType: DateRangeType.week,
-      latestWeight: _getLatestBodyWeight(bodyWeightDataList).weight,
+      latestWeight: getLatestBodyWeight(bodyWeightDataList).weight,
       latestBodyFatPercentage:
-          _getLatestBodyFatPercentage(bodyFatPercentageDataList)
+          getLatestBodyFatPercentage(bodyFatPercentageDataList)
               .bodyFatPercentage,
     );
   }
 
-  void update() {
-    final bodyWeightDataList =
-        ref.read(getBodyDataUseCaseProvider).getBodyWeight();
-    final bodyFatPercentageDataList =
-        ref.read(getBodyDataUseCaseProvider).getBodyFatPercentage();
-    bodyWeightDataList.sort((a, b) => a.date.compareTo(b.date));
-    bodyFatPercentageDataList.sort((a, b) => a.date.compareTo(b.date));
-    state = state.copyWith(
-      bodyWeightData: bodyWeightDataList,
-      bodyFatPercentageData: bodyFatPercentageDataList,
-      averageBodyWeightData: _generateAverageBodyWeight(bodyWeightDataList),
-      averageBodyFatPercentageData:
-          _generateAverageBodyFatPercentage(bodyFatPercentageDataList),
-      latestWeight: _getLatestBodyWeight(bodyWeightDataList).weight,
-      latestBodyFatPercentage:
-          _getLatestBodyFatPercentage(bodyFatPercentageDataList)
-              .bodyFatPercentage,
-    );
+  Future<void> updateData() async {
+    state = await AsyncValue.guard(() async {
+      final bodyWeightDataList =
+          await ref.read(getBodyDataUseCaseProvider).getBodyWeight();
+      final bodyFatPercentageDataList =
+          await ref.read(getBodyDataUseCaseProvider).getBodyFatPercentage();
+
+      bodyWeightDataList.sort((a, b) => a.date.compareTo(b.date));
+      bodyFatPercentageDataList.sort((a, b) => a.date.compareTo(b.date));
+
+      return state.value!.copyWith(
+        bodyWeightData: bodyWeightDataList,
+        bodyFatPercentageData: bodyFatPercentageDataList,
+        averageBodyWeightData: generateAverageBodyWeight(bodyWeightDataList),
+        averageBodyFatPercentageData:
+            generateAverageBodyFatPercentage(bodyFatPercentageDataList),
+        latestWeight: getLatestBodyWeight(bodyWeightDataList).weight,
+        latestBodyFatPercentage:
+            getLatestBodyFatPercentage(bodyFatPercentageDataList)
+                .bodyFatPercentage,
+      );
+    });
   }
 
-  void changeRangeType(DateRangeType rangeType) {
-    state = state.copyWith(rangeType: rangeType);
-  }
-
-  BodyWeightDataModel _getLatestBodyWeight(
-      List<BodyWeightDataModel> bodyWeightData) {
-    final list = bodyWeightData;
-    list.sort((a, b) => b.date.compareTo(a.date));
-    return list.firstOrNull ??
-        BodyWeightDataModel(date: DateTime.now(), weight: 70);
-  }
-
-  BodyFatPercentageDataModel _getLatestBodyFatPercentage(
-      List<BodyFatPercentageDataModel> bodyFatPercentageData) {
-    final list = bodyFatPercentageData;
-    list.sort((a, b) => b.date.compareTo(a.date));
-    return list.firstOrNull ??
-        BodyFatPercentageDataModel(date: DateTime.now(), bodyFatPercentage: 30);
-  }
-
-  List<BodyWeightDataModel> _generateAverageBodyWeight(
-      List<BodyWeightDataModel> bodyWeightData) {
-    List<BodyWeightDataModel> averageData = [];
-
-    for (int i = 0; i < bodyWeightData.length; i++) {
-      DateTime endDate = bodyWeightData[i].date;
-      DateTime startDate = endDate.subtract(const Duration(days: 14));
-
-      // 2週間前までのデータをフィルタリング
-      List<BodyWeightDataModel> twoWeeksData = bodyWeightData
-          .where((data) =>
-              data.date.isAfter(startDate) &&
-              data.date.isBefore(endDate.add(const Duration(days: 1))))
-          .toList();
-
-      // 平均を計算
-      double averageWeight = twoWeeksData.fold(
-              0, (sum, data) => sum + (data.weight * 100).toInt()) /
-          twoWeeksData.length /
-          100;
-
-      // 平均データをリストに追加
-      averageData
-          .add(BodyWeightDataModel(date: endDate, weight: averageWeight));
-    }
-
-    return averageData;
-  }
-
-  List<BodyFatPercentageDataModel> _generateAverageBodyFatPercentage(
-      List<BodyFatPercentageDataModel> bodyFatPercentageData) {
-    List<BodyFatPercentageDataModel> averageData = [];
-
-    for (int i = 0; i < bodyFatPercentageData.length; i++) {
-      DateTime endDate = bodyFatPercentageData[i].date;
-      DateTime startDate = endDate.subtract(const Duration(days: 14));
-
-      // 2週間前までのデータをフィルタリング
-      List<BodyFatPercentageDataModel> twoWeeksData = bodyFatPercentageData
-          .where((data) =>
-              data.date.isAfter(startDate) &&
-              data.date.isBefore(endDate.add(const Duration(days: 1))))
-          .toList();
-
-      // 平均を計算
-      double averageBodyFatPercentage = twoWeeksData.fold(
-              0, (sum, data) => sum + (data.bodyFatPercentage * 100).toInt()) /
-          twoWeeksData.length /
-          100;
-
-      // 平均データをリストに追加
-      averageData.add(BodyFatPercentageDataModel(
-          date: endDate, bodyFatPercentage: averageBodyFatPercentage));
-    }
-
-    return averageData;
+  Future<void> changeRangeType(DateRangeType rangeType) async {
+    state = await AsyncValue.guard(() async {
+      return state.value!.copyWith(rangeType: rangeType);
+    });
   }
 }
