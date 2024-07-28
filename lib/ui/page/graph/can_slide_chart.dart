@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:moufu/domain/chart_model.dart';
-import 'package:moufu/ui/controller/can_slide_chart_controller.dart';
+import 'package:moufu/ui/controller/graph/can_slide_chart_controller.dart';
 import 'package:moufu/ui/state/can_slide_chart_state.dart';
 
 class CanSlideChart extends ConsumerWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:moufu/application/providers/usecase_providers.dart';
 import 'package:moufu/domain/chart_model.dart';
-import 'package:moufu/ui/controller/can_slide_chart_controller.dart';
+import 'package:moufu/ui/controller/graph/can_slide_chart_controller.dart';
 import 'package:moufu/ui/state/add_modal_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

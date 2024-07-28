@@ -3,8 +3,10 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:health/health.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:moufu/domain/theme_type.dart';
 import 'package:moufu/ui/page/graph/graph_page.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:moufu/ui/utils/theme_controller.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -21,14 +23,16 @@ Future<void> main() async {
   runApp(const ProviderScope(child: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final theme = ref.watch(themeControllerProvider);
     return MaterialApp(
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange),
+        colorScheme:
+            ColorScheme.fromSeed(seedColor: ThemeType.fromEnumToColor(theme)),
         useMaterial3: true,
       ),
       home: const GraphPage(),

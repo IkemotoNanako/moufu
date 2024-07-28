@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moufu/ui/page/setting/theme_setting_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SettingPage extends StatelessWidget {
@@ -17,6 +18,32 @@ class SettingPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+              child: Align(alignment: Alignment.centerLeft, child: Text('見た目')),
+            ),
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const ThemeSettingPage()),
+                );
+              },
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                color: themeScheme.onPrimary,
+                child: const Row(
+                  children: [
+                    Text('カラーテーマ設定', style: TextStyle(fontSize: 16)),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 16,
+            ),
             const Padding(
               padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
               child:
