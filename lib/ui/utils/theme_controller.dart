@@ -8,6 +8,7 @@ part 'theme_controller.g.dart';
 class ThemeController extends _$ThemeController {
   @override
   ThemeType build() {
+    load();
     return ThemeType.orange;
   }
 

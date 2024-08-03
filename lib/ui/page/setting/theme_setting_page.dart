@@ -1,9 +1,11 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
 import 'package:moufu/domain/chart_model.dart';
 import 'package:moufu/domain/theme_type.dart';
+import 'package:moufu/ui/utils/get_addmod_id.dart';
 import 'package:moufu/ui/utils/theme_controller.dart';
 
 class ThemeSettingPage extends ConsumerWidget {
@@ -14,6 +16,13 @@ class ThemeSettingPage extends ConsumerWidget {
     final themeScheme = Theme.of(context).colorScheme;
     final state = ref.watch(themeControllerProvider);
     final notifier = ref.read(themeControllerProvider.notifier);
+    final bannerId = getAdBannerUnitIdSecond();
+    BannerAd myBanner = BannerAd(
+        adUnitId: bannerId,
+        size: AdSize.banner,
+        request: const AdRequest(),
+        listener: const BannerAdListener());
+    myBanner.load();
     return Scaffold(
       appBar: AppBar(
         title: const Text('カラーテーマ設定'),
@@ -39,6 +48,12 @@ class ThemeSettingPage extends ConsumerWidget {
           child: Center(
             child: Column(
               children: [
+                Container(
+                  width: myBanner.size.width.toDouble(),
+                  height: myBanner.size.height.toDouble(),
+                  alignment: Alignment.center,
+                  child: AdWidget(ad: myBanner),
+                ),
                 Padding(
                   padding: const EdgeInsets.only(top: 16, bottom: 32),
                   child: Row(
