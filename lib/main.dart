@@ -15,8 +15,9 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  MobileAds.instance.initialize();
   await dotenv.load(fileName: '.env');
+
+  MobileAds.instance.initialize();
 
   Health().configure();
 

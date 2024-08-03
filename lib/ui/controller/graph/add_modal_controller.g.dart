@@ -7,7 +7,7 @@ part of 'add_modal_controller.dart';
 // **************************************************************************
 
 String _$addModalControllerHash() =>
-    r'64e19acc381402836c505ff986277bc2b9cd5564';
+    r'b17231a20ffa02df072f11c83f6e64242deada37';
 
 /// See also [AddModalController].
 @ProviderFor(AddModalController)

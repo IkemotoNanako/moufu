@@ -24,7 +24,7 @@ final getBodyDataUseCaseProvider =
 
 typedef GetBodyDataUseCaseRef = AutoDisposeProviderRef<GetBodyDataUseCase>;
 String _$saveBodyDataUseCaseHash() =>
-    r'd02c71a7f220ae7b1121948f73d30948a2f18fa2';
+    r'a734b841afe7af7005c81ced84fbcd2eca7bfd3c';
 
 /// See also [saveBodyDataUseCase].
 @ProviderFor(saveBodyDataUseCase)

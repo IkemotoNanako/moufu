@@ -11,45 +11,94 @@ class ThemeSettingPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final themeScheme = Theme.of(context).colorScheme;
     final state = ref.watch(themeControllerProvider);
     final notifier = ref.read(themeControllerProvider.notifier);
     return Scaffold(
       appBar: AppBar(
         title: const Text('カラーテーマ設定'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios),
+          onPressed: () async {
+            await notifier.load();
+            if (context.mounted) {
+              Navigator.pop(context);
+            }
+          },
+        ),
       ),
       body: SafeArea(
-        child: Center(
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 16, bottom: 32),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    IconButton(
-                        icon: const Icon(Icons.arrow_back_ios),
-                        onPressed: () {
-                          notifier.previous();
-                        }),
-                    Text(ThemeType.fromEnumToString(state),
-                        style: const TextStyle(fontSize: 20)),
-                    IconButton(
-                        icon: const Icon(Icons.arrow_forward_ios),
-                        onPressed: () {
-                          notifier.next();
-                        }),
-                  ],
+        child: GestureDetector(
+          onHorizontalDragEnd: (details) {
+            if (details.primaryVelocity! > 0) {
+              notifier.previous();
+            } else if (details.primaryVelocity! < 0) {
+              notifier.next();
+            }
+          },
+          child: Center(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 16, bottom: 32),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      IconButton(
+                          icon: const Icon(Icons.arrow_back_ios),
+                          onPressed: () {
+                            notifier.previous();
+                          }),
+                      SizedBox(
+                        width: 200,
+                        child: Center(
+                          child: Text(ThemeType.fromEnumToString(state),
+                              style: const TextStyle(fontSize: 20)),
+                        ),
+                      ),
+                      IconButton(
+                          icon: const Icon(Icons.arrow_forward_ios),
+                          onPressed: () {
+                            notifier.next();
+                          }),
+                    ],
+                  ),
                 ),
-              ),
-              const Expanded(
-                child: Stack(
-                  children: [
-                    _SampleWightChart(),
-                    _SampleFatPercentageChart(),
-                  ],
+                const Expanded(
+                  child: Stack(
+                    children: [
+                      _SampleWightChart(),
+                      _SampleFatPercentageChart(),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        await notifier.set();
+                        if (context.mounted) {
+                          Navigator.pop(context);
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.all(8),
+                        backgroundColor: themeScheme.inversePrimary,
+                        foregroundColor: themeScheme.onPrimary,
+                      ),
+                      child: const Text(
+                        '設定完了',
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
