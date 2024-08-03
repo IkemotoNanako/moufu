@@ -17,7 +17,7 @@ class HealthRepository {
 
   Future<List<HealthDataPoint>> getHealthDataPoints(HealthDataType type) async {
     final types = [type];
-    final now = DateTime.now();
+    final now = DateTime.now().add(const Duration(days: 1));
     final startDate = now.subtract(const Duration(days: 700));
     final endDate = now;
     try {
