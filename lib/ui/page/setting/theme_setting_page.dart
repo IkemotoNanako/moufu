@@ -67,8 +67,13 @@ class ThemeSettingPage extends ConsumerWidget {
                       SizedBox(
                         width: 200,
                         child: Center(
-                          child: Text(ThemeType.fromEnumToString(state),
-                              style: const TextStyle(fontSize: 20)),
+                          child: state.when(
+                              data: (data) {
+                                return Text(ThemeType.fromEnumToString(data),
+                                    style: const TextStyle(fontSize: 20));
+                              },
+                              error: (_, __) => const Text('エラーが発生しました'),
+                              loading: () => const CircularProgressIndicator()),
                         ),
                       ),
                       IconButton(

@@ -7,31 +7,45 @@ part 'theme_controller.g.dart';
 @riverpod
 class ThemeController extends _$ThemeController {
   @override
-  ThemeType build() {
-    load();
-    return ThemeType.orange;
+  FutureOr<ThemeType> build() async {
+    final prefs = await SharedPreferences.getInstance();
+    final theme = prefs.getString('theme');
+    return theme != null ? ThemeType.fromStringToEnum(theme) : ThemeType.orange;
   }
 
   Future<void> set() async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('theme', ThemeType.fromEnumToString(state));
+    state.when(
+        data: (data) async {
+          await prefs.setString('theme', ThemeType.fromEnumToString(data));
+        },
+        error: (_, __) {},
+        loading: () {});
   }
 
   Future<void> load() async {
     final prefs = await SharedPreferences.getInstance();
     final theme = prefs.getString('theme');
     if (theme != null) {
-      state = ThemeType.fromStringToEnum(theme);
+      state = await AsyncValue.guard(() async {
+        return ThemeType.fromStringToEnum(theme);
+      });
     } else {
-      state = ThemeType.orange;
+      state = await AsyncValue.guard(() async {
+        return ThemeType.orange;
+      });
     }
   }
 
-  void next() {
-    state = state.getNext();
+  Future<void> next() async {
+    state = await AsyncValue.guard(() async {
+      return state.value!.getNext();
+    });
   }
 
-  void previous() {
-    state = state.getPrevious();
+  Future<void> previous() async {
+    state = await AsyncValue.guard(() async {
+      return state.value!.getPrevious();
+    });
   }
 }
