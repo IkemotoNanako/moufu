@@ -7,7 +7,7 @@ part of 'usecase_providers.dart';
 // **************************************************************************
 
 String _$getBodyDataUseCaseHash() =>
-    r'2df22709d43afa0fd6315aa88ae78b94441f39c7';
+    r'131151eb4bc055791fada3edda85110168c4b5a9';
 
 /// See also [getBodyDataUseCase].
 @ProviderFor(getBodyDataUseCase)
@@ -24,7 +24,7 @@ final getBodyDataUseCaseProvider =
 
 typedef GetBodyDataUseCaseRef = AutoDisposeProviderRef<GetBodyDataUseCase>;
 String _$saveBodyDataUseCaseHash() =>
-    r'a734b841afe7af7005c81ced84fbcd2eca7bfd3c';
+    r'88463f0829aeacc56179c283be39c6b8d37cb503';
 
 /// See also [saveBodyDataUseCase].
 @ProviderFor(saveBodyDataUseCase)
@@ -40,24 +40,6 @@ final saveBodyDataUseCaseProvider =
 );
 
 typedef SaveBodyDataUseCaseRef = AutoDisposeProviderRef<SaveBodyDataUseCase>;
-String _$deleteBodyDataUseCaseHash() =>
-    r'7bbdef9a2b6f124a05392658f4cb9d039ddda366';
-
-/// See also [deleteBodyDataUseCase].
-@ProviderFor(deleteBodyDataUseCase)
-final deleteBodyDataUseCaseProvider =
-    AutoDisposeProvider<DeleteBodyDataUseCase>.internal(
-  deleteBodyDataUseCase,
-  name: r'deleteBodyDataUseCaseProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$deleteBodyDataUseCaseHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef DeleteBodyDataUseCaseRef
-    = AutoDisposeProviderRef<DeleteBodyDataUseCase>;
 String _$permissionUsecaseHash() => r'b7906b6da106a3c8e4864d23ccc3892e14edf89e';
 
 /// See also [permissionUsecase].

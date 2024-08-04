@@ -5,91 +5,155 @@ import 'package:intl/intl.dart';
 import 'package:moufu/domain/chart_model.dart';
 import 'package:moufu/ui/controller/graph/can_slide_chart_controller.dart';
 import 'package:moufu/ui/state/can_slide_chart_state.dart';
+import 'package:permission_handler/permission_handler.dart';
 
-class CanSlideChart extends ConsumerWidget {
+class CanSlideChart extends ConsumerStatefulWidget {
   const CanSlideChart({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(canSlideChartControllerProvider);
-    final notifier = ref.watch(canSlideChartControllerProvider.notifier);
-    return state.when(
-      data: (data) {
-        return Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+  CanSlideChartWidgetState createState() => CanSlideChartWidgetState();
+}
+
+class CanSlideChartWidgetState extends ConsumerState<CanSlideChart>
+    with WidgetsBindingObserver {
+  late WidgetRef _ref;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+
+    if (state == AppLifecycleState.resumed) {
+      _ref.read(canSlideChartControllerProvider.notifier).updateData();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer(builder: (context, watch, child) {
+      _ref = watch; // refを保存
+      final state = ref.watch(canSlideChartControllerProvider);
+      final notifier = ref.watch(canSlideChartControllerProvider.notifier);
+
+      return state.when(
+        data: (data) {
+          if (data.bodyWeightData.isNotEmpty) {
+            return Column(
               children: [
-                _RangeSelectButton(
-                  text: '1週間',
-                  onPressed: () {
-                    notifier.changeRangeType(DateRangeType.week);
-                  },
-                  active: data.rangeType == DateRangeType.week,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    _RangeSelectButton(
+                      text: '1週間',
+                      onPressed: () {
+                        notifier.changeRangeType(DateRangeType.week);
+                      },
+                      active: data.rangeType == DateRangeType.week,
+                    ),
+                    _RangeSelectButton(
+                      text: '1ヶ月',
+                      onPressed: () {
+                        notifier.changeRangeType(DateRangeType.month);
+                      },
+                      active: data.rangeType == DateRangeType.month,
+                    ),
+                    _RangeSelectButton(
+                      text: '3ヶ月',
+                      onPressed: () {
+                        notifier.changeRangeType(DateRangeType.threeMonths);
+                      },
+                      active: data.rangeType == DateRangeType.threeMonths,
+                    ),
+                    _RangeSelectButton(
+                      text: '6ヶ月',
+                      onPressed: () {
+                        notifier.changeRangeType(DateRangeType.year);
+                      },
+                      active: data.rangeType == DateRangeType.year,
+                    ),
+                  ],
                 ),
-                _RangeSelectButton(
-                  text: '1ヶ月',
-                  onPressed: () {
-                    notifier.changeRangeType(DateRangeType.month);
-                  },
-                  active: data.rangeType == DateRangeType.month,
+                SizedBox.fromSize(
+                  size: const Size.fromHeight(16),
                 ),
-                _RangeSelectButton(
-                  text: '3ヶ月',
-                  onPressed: () {
-                    notifier.changeRangeType(DateRangeType.threeMonths);
-                  },
-                  active: data.rangeType == DateRangeType.threeMonths,
-                ),
-                _RangeSelectButton(
-                  text: '6ヶ月',
-                  onPressed: () {
-                    notifier.changeRangeType(DateRangeType.year);
-                  },
-                  active: data.rangeType == DateRangeType.year,
+                Expanded(
+                  child: Stack(
+                    children: [
+                      _BodyWeightSideTitles(state: data),
+                      _BodyFatPercentageSlideTitles(state: data),
+                      SingleChildScrollView(
+                        reverse: true,
+                        scrollDirection: Axis.horizontal,
+                        child: SizedBox(
+                          width: MediaQuery.of(context).size.width * 2,
+                          child: Stack(
+                            children: [
+                              _DateSlideTitles(state: data),
+                              _AverageBodyWeightGraph(state: data),
+                              _DailyBodyWeightGraph(state: data),
+                              _AverageBodyFatPercentageGraph(state: data),
+                              _DailyBodyFatPercentageGraph(state: data)
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
-            ),
-            SizedBox.fromSize(
-              size: const Size.fromHeight(16),
-            ),
-            Expanded(
-              child: Stack(
+            );
+          } else {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _BodyWeightSideTitles(state: data),
-                  _BodyFatPercentageSlideTitles(state: data),
-                  SingleChildScrollView(
-                    reverse: true,
-                    scrollDirection: Axis.horizontal,
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width * 2,
-                      child: Stack(
-                        children: [
-                          _DateSlideTitles(state: data),
-                          _AverageBodyWeightGraph(state: data),
-                          _DailyBodyWeightGraph(state: data),
-                          _AverageBodyFatPercentageGraph(state: data),
-                          _DailyBodyFatPercentageGraph(state: data)
-                        ],
-                      ),
-                    ),
+                  const Text('データがありません', style: TextStyle(fontSize: 20)),
+                  SizedBox.fromSize(size: const Size.fromHeight(16)),
+                  const Text('* ヘルスケアと連携していない場合',
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                  SizedBox.fromSize(size: const Size.fromHeight(4)),
+                  const Text('下のボタンから設定アプリに移動'),
+                  const Text('プライバシーとセキュリティ→ヘルスケア→モーフ'),
+                  const Text('の順に移動して、全てをオンにしてください'),
+                  SizedBox.fromSize(size: const Size.fromHeight(4)),
+                  ElevatedButton(
+                    onPressed: () {
+                      openAppSettings();
+                    },
+                    child: const Text('設定アプリへ移動'),
                   ),
+                  SizedBox.fromSize(size: const Size.fromHeight(16)),
+                  const Text('* ヘルスケアと連携している場合',
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                  SizedBox.fromSize(size: const Size.fromHeight(4)),
+                  const Text('下の＋ボタンから体重・体脂肪率を追加してください'),
                 ],
               ),
-            ),
-          ],
-        );
-      },
-      error: (_, __) => Center(
-        child: TextButton(
-          onPressed: notifier.build,
-          child: const Text('リトライ'),
+            );
+          }
+        },
+        error: (_, __) => Center(
+          child: TextButton(
+            onPressed: notifier.build,
+            child: const Text('リトライ'),
+          ),
         ),
-      ),
-      loading: () => const Center(
-        child: CircularProgressIndicator(),
-      ),
-    );
+        loading: () => const Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    });
   }
 }
 

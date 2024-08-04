@@ -32,6 +32,7 @@ class CanSlideChartController extends _$CanSlideChartController {
       latestBodyFatPercentage:
           getLatestBodyFatPercentage(bodyFatPercentageDataList)
               .bodyFatPercentage,
+      asyncValue: const AsyncValue.data(null),
     );
   }
 

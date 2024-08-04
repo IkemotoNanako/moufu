@@ -57,24 +57,33 @@ class AddModalController extends _$AddModalController {
     }
   }
 
-  Future<void> saveData() async {
-    await ref.read(saveBodyDataUseCaseProvider).saveBodyWeight(
-          bodyData: BodyWeightDataModel(
-            weight: double.parse(bodyWeightController.text),
-            date: state.date,
-          ),
-          oldData: state.oldBodyWeightDataModel,
-        );
+  Future<bool> saveData() async {
+    final successWeight =
+        await ref.read(saveBodyDataUseCaseProvider).saveBodyWeight(
+              bodyData: BodyWeightDataModel(
+                weight: double.parse(bodyWeightController.text),
+                date: state.date,
+              ),
+            );
+    if (!successWeight) {
+      return false;
+    }
     if (bodyFatPercentageController.text.isNotEmpty) {
-      await ref.read(saveBodyDataUseCaseProvider).saveBodyFatPercentage(
+      final successFatPercentage = await ref
+          .read(saveBodyDataUseCaseProvider)
+          .saveBodyFatPercentage(
             bodyData: BodyFatPercentageDataModel(
               bodyFatPercentage: double.parse(bodyFatPercentageController.text),
               date: state.date,
             ),
-            oldData: state.oldBodyFatPercentageDataModel,
           );
+      if (!successFatPercentage) {
+        return false;
+      }
     }
     await ref.read(canSlideChartControllerProvider.notifier).updateData();
     ref.invalidate(getBodyDataUseCaseProvider);
+
+    return true;
   }
 }

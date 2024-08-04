@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:moufu/domain/chart_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -13,5 +14,6 @@ class CanSlideChartState with _$CanSlideChartState {
     @Default(DateRangeType.week) DateRangeType rangeType,
     @Default(70) double latestWeight,
     @Default(40) double latestBodyFatPercentage,
+    @Default(AsyncValue.loading()) AsyncValue asyncValue,
   }) = _CanSlideChartState;
 }

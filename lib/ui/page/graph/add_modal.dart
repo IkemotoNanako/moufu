@@ -45,9 +45,28 @@ class AddModal extends ConsumerWidget {
                     if (notifier.bodyWeightController.text.isEmpty) {
                       return;
                     }
-                    await notifier.saveData();
-                    if (context.mounted) {
+                    final success = await notifier.saveData();
+
+                    if (success && context.mounted) {
                       Navigator.pop(context);
+                    } else if (!success && context.mounted) {
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: const Text('保存できません'),
+                              content:
+                                  const Text('設定のヘルスケアから、モーフからの書き込みを許可してください'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: const Text('OK'),
+                                ),
+                              ],
+                            );
+                          });
                     }
                   },
                   child: Text(

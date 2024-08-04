@@ -20,17 +20,15 @@ class HealthRepository {
     final now = DateTime.now().add(const Duration(days: 1));
     final startDate = now.subtract(const Duration(days: 700));
     final endDate = now;
-    try {
-      return await _health.getHealthDataFromTypes(
-          types: types, startTime: startDate, endTime: endDate);
-    } catch (e) {
-      return [];
-    }
+
+    return await _health.getHealthDataFromTypes(
+        types: types, startTime: startDate, endTime: endDate);
   }
 
-  Future<void> saveHealthDataPoint(
+  Future<bool> saveHealthDataPoint(
       double value, HealthDataType type, DateTime date) async {
-    await _health.writeHealthData(
+    final success = await _health.writeHealthData(
         value: value, type: type, startTime: date, endTime: date);
+    return success;
   }
 }

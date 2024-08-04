@@ -1,7 +1,6 @@
 import 'package:moufu/infrastructure/data/body_data.dart';
 import 'package:moufu/infrastructure/repository/health_repository.dart';
 import 'package:moufu/infrastructure/repository/realm_repository.dart';
-import 'package:moufu/infrastructure/repository/body_data_repository.dart';
 import 'package:realm/realm.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -13,11 +12,6 @@ RealmRepository realmRepository(RealmRepositoryRef ref) {
       [BodyWeightData.schema, BodyFatPercentageData.schema]);
   final realm = Realm(config);
   return RealmRepository(realm);
-}
-
-@riverpod
-BodyDataRepository bodyDataRepository(BodyDataRepositoryRef ref) {
-  return BodyDataRepository(ref.read(realmRepositoryProvider).realm);
 }
 
 @riverpod

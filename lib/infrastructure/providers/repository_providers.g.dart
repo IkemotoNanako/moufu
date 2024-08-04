@@ -21,23 +21,6 @@ final realmRepositoryProvider = AutoDisposeProvider<RealmRepository>.internal(
 );
 
 typedef RealmRepositoryRef = AutoDisposeProviderRef<RealmRepository>;
-String _$bodyDataRepositoryHash() =>
-    r'265a6d2ef014b9ce04df92110024aaa91839a584';
-
-/// See also [bodyDataRepository].
-@ProviderFor(bodyDataRepository)
-final bodyDataRepositoryProvider =
-    AutoDisposeProvider<BodyDataRepository>.internal(
-  bodyDataRepository,
-  name: r'bodyDataRepositoryProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$bodyDataRepositoryHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef BodyDataRepositoryRef = AutoDisposeProviderRef<BodyDataRepository>;
 String _$healthRepositoryHash() => r'f583a8e0a938df5aa276a7f12a58e5f839110f12';
 
 /// See also [healthRepository].
