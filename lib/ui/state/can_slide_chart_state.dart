@@ -11,7 +11,7 @@ class CanSlideChartState with _$CanSlideChartState {
     @Default([]) List<BodyFatPercentageDataModel> bodyFatPercentageData,
     @Default([]) List<BodyWeightDataModel> averageBodyWeightData,
     @Default([]) List<BodyFatPercentageDataModel> averageBodyFatPercentageData,
-    @Default(DateRangeType.week) DateRangeType rangeType,
+    @Default(DateRangeType.month) DateRangeType rangeType,
     @Default(70) double latestWeight,
     @Default(40) double latestBodyFatPercentage,
     @Default(AsyncValue.loading()) AsyncValue asyncValue,

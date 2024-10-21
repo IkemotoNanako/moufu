@@ -27,7 +27,7 @@ class CanSlideChartController extends _$CanSlideChartController {
       averageBodyWeightData: generateAverageBodyWeight(bodyWeightDataList),
       averageBodyFatPercentageData:
           generateAverageBodyFatPercentage(bodyFatPercentageDataList),
-      rangeType: DateRangeType.week,
+      rangeType: DateRangeType.month,
       latestWeight: getLatestBodyWeight(bodyWeightDataList).weight,
       latestBodyFatPercentage:
           getLatestBodyFatPercentage(bodyFatPercentageDataList)

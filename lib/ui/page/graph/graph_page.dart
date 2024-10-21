@@ -13,10 +13,11 @@ class GraphPage extends StatelessWidget {
     final themeScheme = Theme.of(context).colorScheme;
     final bannerId = getAdBannerUnitId();
     BannerAd myBanner = BannerAd(
-        adUnitId: bannerId,
-        size: AdSize.banner,
-        request: const AdRequest(),
-        listener: const BannerAdListener());
+      adUnitId: bannerId,
+      size: AdSize.banner,
+      request: const AdRequest(),
+      listener: const BannerAdListener(),
+    );
     myBanner.load();
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -24,20 +25,23 @@ class GraphPage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         backgroundColor: themeScheme.inversePrimary,
         shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(50)),
+          borderRadius: BorderRadius.all(
+            Radius.circular(50),
+          ),
         ),
         onPressed: () {
           showModalBottomSheet(
-              isScrollControlled: true,
-              context: context,
-              builder: (context) {
-                return Padding(
-                  padding: EdgeInsets.only(
-                    bottom: MediaQuery.of(context).viewInsets.bottom,
-                  ),
-                  child: const AddModal(),
-                );
-              });
+            isScrollControlled: true,
+            context: context,
+            builder: (context) {
+              return Padding(
+                padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).viewInsets.bottom,
+                ),
+                child: const AddModal(),
+              );
+            },
+          );
         },
         foregroundColor: themeScheme.onPrimary,
         child: const Icon(Icons.add),
@@ -60,7 +64,9 @@ class GraphPage extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const SettingPage()),
+                MaterialPageRoute(
+                  builder: (context) => const SettingPage(),
+                ),
               );
             },
             icon: const Icon(

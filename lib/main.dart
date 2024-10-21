@@ -25,10 +25,14 @@ Future<void> main() async {
   final prefs = await SharedPreferences.getInstance();
   final theme = prefs.getString('theme');
 
-  runApp(ProviderScope(
+  runApp(
+    ProviderScope(
       child: MyApp(
-    themeType: ThemeType.fromStringToEnum(theme ?? ThemeType.orange.toString()),
-  )));
+        themeType:
+            ThemeType.fromStringToEnum(theme ?? ThemeType.orange.toString()),
+      ),
+    ),
+  );
 }
 
 class MyApp extends ConsumerWidget {
@@ -42,8 +46,9 @@ class MyApp extends ConsumerWidget {
     return MaterialApp(
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-            seedColor: ThemeType.fromEnumToColor(
-                theme.hasValue ? theme.value ?? themeType : themeType)),
+          seedColor: ThemeType.fromEnumToColor(
+              theme.hasValue ? theme.value ?? themeType : themeType),
+        ),
         useMaterial3: true,
       ),
       home: theme.isLoading

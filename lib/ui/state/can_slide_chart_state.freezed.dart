@@ -195,7 +195,7 @@ class _$CanSlideChartStateImpl implements _CanSlideChartState {
       final List<BodyWeightDataModel> averageBodyWeightData = const [],
       final List<BodyFatPercentageDataModel> averageBodyFatPercentageData =
           const [],
-      this.rangeType = DateRangeType.week,
+      this.rangeType = DateRangeType.month,
       this.latestWeight = 70,
       this.latestBodyFatPercentage = 40,
       this.asyncValue = const AsyncValue.loading()})

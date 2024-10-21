@@ -45,7 +45,7 @@ class CanSlideChartWidgetState extends ConsumerState<CanSlideChart>
       _ref = watch; // refを保存
       final state = ref.watch(canSlideChartControllerProvider);
       final notifier = ref.watch(canSlideChartControllerProvider.notifier);
-
+      final themeScheme = Theme.of(context).colorScheme;
       return state.when(
         data: (data) {
           if (data.bodyWeightData.isNotEmpty) {
@@ -54,13 +54,6 @@ class CanSlideChartWidgetState extends ConsumerState<CanSlideChart>
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    _RangeSelectButton(
-                      text: '1週間',
-                      onPressed: () {
-                        notifier.changeRangeType(DateRangeType.week);
-                      },
-                      active: data.rangeType == DateRangeType.week,
-                    ),
                     _RangeSelectButton(
                       text: '1ヶ月',
                       onPressed: () {
@@ -82,10 +75,62 @@ class CanSlideChartWidgetState extends ConsumerState<CanSlideChart>
                       },
                       active: data.rangeType == DateRangeType.year,
                     ),
+                    _RangeSelectButton(
+                      text: '2年',
+                      onPressed: () {
+                        notifier.changeRangeType(DateRangeType.twoYears);
+                      },
+                      active: data.rangeType == DateRangeType.twoYears,
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: themeScheme.inversePrimary,
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 4),
+                          child: Text(
+                            '体重',
+                            style: TextStyle(
+                              color: themeScheme.onPrimary,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: themeScheme.tertiaryContainer,
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 4),
+                          child: Text(
+                            '体脂肪率',
+                            style: TextStyle(
+                              color: themeScheme.onPrimary,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
                 SizedBox.fromSize(
-                  size: const Size.fromHeight(16),
+                  size: const Size.fromHeight(8),
                 ),
                 Expanded(
                   child: Stack(
@@ -240,8 +285,8 @@ class _BodyWeightSideTitles extends StatelessWidget {
           ),
         ),
         borderData: FlBorderData(show: false),
-        maxY: ((state.latestWeight + 15) / 5).ceil() * 5,
-        minY: ((state.latestWeight - 10) / 5).ceil() * 5,
+        maxY: ((state.latestWeight + 5) / 5).ceil() * 5,
+        minY: ((state.latestWeight - 20) / 5).ceil() * 5,
       ),
     );
   }
@@ -380,8 +425,8 @@ class _BodyFatPercentageSlideTitles extends StatelessWidget {
           ),
         ),
         borderData: FlBorderData(show: false),
-        maxY: ((state.latestBodyFatPercentage + 5) / 2).ceil() * 2,
-        minY: ((state.latestBodyFatPercentage - 5) / 2).ceil() * 2,
+        maxY: ((state.latestBodyFatPercentage + 7) / 2).ceil() * 2,
+        minY: ((state.latestBodyFatPercentage - 3) / 2).ceil() * 2,
       ),
     );
   }
@@ -431,8 +476,8 @@ class _AverageBodyWeightGraph extends StatelessWidget {
           ),
         ),
         borderData: FlBorderData(show: false),
-        maxY: ((state.latestWeight + 15) / 5).ceil() * 5,
-        minY: ((state.latestWeight - 10) / 5).ceil() * 5,
+        maxY: ((state.latestWeight + 5) / 5).ceil() * 5,
+        minY: ((state.latestWeight - 20) / 5).ceil() * 5,
         baselineX: DateTime(
                 DateTime.now().year, DateTime.now().month, DateTime.now().day)
             .subtract(Duration(days: state.rangeType.range))
@@ -452,8 +497,10 @@ class _AverageBodyWeightGraph extends StatelessWidget {
         lineBarsData: [
           LineChartBarData(
             spots: sortableData
-                .map((data) => FlSpot(
-                    data.date.millisecondsSinceEpoch.toDouble(), data.weight))
+                .map(
+                  (data) => FlSpot(
+                      data.date.millisecondsSinceEpoch.toDouble(), data.weight),
+                )
                 .toList(),
             color: themeScheme.inversePrimary,
             isCurved: false,
@@ -508,8 +555,8 @@ class _DailyBodyWeightGraph extends StatelessWidget {
           ),
         ),
         borderData: FlBorderData(show: false),
-        maxY: ((state.latestWeight + 15) / 5).ceil() * 5,
-        minY: ((state.latestWeight - 10) / 5).ceil() * 5,
+        maxY: ((state.latestWeight + 5) / 5).ceil() * 5,
+        minY: ((state.latestWeight - 20) / 5).ceil() * 5,
         baselineX: DateTime(
                 DateTime.now().year, DateTime.now().month, DateTime.now().day)
             .subtract(Duration(days: state.rangeType.range))
@@ -517,20 +564,26 @@ class _DailyBodyWeightGraph extends StatelessWidget {
             .toDouble(),
         minX: DateTime(
                 DateTime.now().year, DateTime.now().month, DateTime.now().day)
-            .subtract(Duration(days: state.rangeType.range))
+            .subtract(
+              Duration(days: state.rangeType.range),
+            )
             .millisecondsSinceEpoch
             .toDouble(),
         maxX: DateTime(
                 DateTime.now().year, DateTime.now().month, DateTime.now().day)
-            .add(const Duration(days: 1))
+            .add(
+              const Duration(days: 1),
+            )
             .millisecondsSinceEpoch
             .toDouble(),
         gridData: const FlGridData(show: false),
         lineBarsData: [
           LineChartBarData(
             spots: state.bodyWeightData
-                .map((data) => FlSpot(
-                    data.date.millisecondsSinceEpoch.toDouble(), data.weight))
+                .map(
+                  (data) => FlSpot(
+                      data.date.millisecondsSinceEpoch.toDouble(), data.weight),
+                )
                 .toList(),
             color: Colors.transparent,
             isCurved: false,
@@ -596,16 +649,20 @@ class _AverageBodyFatPercentageGraph extends StatelessWidget {
           ),
         ),
         borderData: FlBorderData(show: false),
-        maxY: ((state.latestBodyFatPercentage + 5) / 2).ceil() * 2,
-        minY: ((state.latestBodyFatPercentage - 5) / 2).ceil() * 2,
+        maxY: ((state.latestBodyFatPercentage + 7) / 2).ceil() * 2,
+        minY: ((state.latestBodyFatPercentage - 3) / 2).ceil() * 2,
         baselineX: DateTime(
                 DateTime.now().year, DateTime.now().month, DateTime.now().day)
-            .subtract(Duration(days: state.rangeType.range))
+            .subtract(
+              Duration(days: state.rangeType.range),
+            )
             .millisecondsSinceEpoch
             .toDouble(),
         minX: DateTime(
                 DateTime.now().year, DateTime.now().month, DateTime.now().day)
-            .subtract(Duration(days: state.rangeType.range))
+            .subtract(
+              Duration(days: state.rangeType.range),
+            )
             .millisecondsSinceEpoch
             .toDouble(),
         maxX: DateTime(
@@ -617,9 +674,10 @@ class _AverageBodyFatPercentageGraph extends StatelessWidget {
         lineBarsData: [
           LineChartBarData(
             spots: sortableData
-                .map((data) => FlSpot(
-                    data.date.millisecondsSinceEpoch.toDouble(),
-                    data.bodyFatPercentage))
+                .map(
+                  (data) => FlSpot(data.date.millisecondsSinceEpoch.toDouble(),
+                      data.bodyFatPercentage),
+                )
                 .toList(),
             color: themeScheme.tertiaryContainer,
             isCurved: false,
@@ -674,21 +732,27 @@ class _DailyBodyFatPercentageGraph extends StatelessWidget {
           ),
         ),
         borderData: FlBorderData(show: false),
-        maxY: ((state.latestBodyFatPercentage + 5) / 2).ceil() * 2,
-        minY: ((state.latestBodyFatPercentage - 5) / 2).ceil() * 2,
+        maxY: ((state.latestBodyFatPercentage + 7) / 2).ceil() * 2,
+        minY: ((state.latestBodyFatPercentage - 3) / 2).ceil() * 2,
         baselineX: DateTime(
                 DateTime.now().year, DateTime.now().month, DateTime.now().day)
-            .subtract(Duration(days: state.rangeType.range))
+            .subtract(
+              Duration(days: state.rangeType.range),
+            )
             .millisecondsSinceEpoch
             .toDouble(),
         minX: DateTime(
                 DateTime.now().year, DateTime.now().month, DateTime.now().day)
-            .subtract(Duration(days: state.rangeType.range))
+            .subtract(
+              Duration(days: state.rangeType.range),
+            )
             .millisecondsSinceEpoch
             .toDouble(),
         maxX: DateTime(
                 DateTime.now().year, DateTime.now().month, DateTime.now().day)
-            .add(const Duration(days: 1))
+            .add(
+              const Duration(days: 1),
+            )
             .millisecondsSinceEpoch
             .toDouble(),
         gridData: const FlGridData(show: false),
@@ -696,9 +760,10 @@ class _DailyBodyFatPercentageGraph extends StatelessWidget {
         lineBarsData: [
           LineChartBarData(
             spots: state.bodyFatPercentageData
-                .map((data) => FlSpot(
-                    data.date.millisecondsSinceEpoch.toDouble(),
-                    data.bodyFatPercentage))
+                .map(
+                  (data) => FlSpot(data.date.millisecondsSinceEpoch.toDouble(),
+                      data.bodyFatPercentage),
+                )
                 .toList(),
             color: Colors.transparent,
             isCurved: true,
