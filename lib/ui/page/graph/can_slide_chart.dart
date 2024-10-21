@@ -285,8 +285,8 @@ class _BodyWeightSideTitles extends StatelessWidget {
           ),
         ),
         borderData: FlBorderData(show: false),
-        maxY: ((state.latestWeight + 5) / 5).ceil() * 5,
-        minY: ((state.latestWeight - 20) / 5).ceil() * 5,
+        maxY: ((state.latestWeight + 10) / 5).ceil() * 5,
+        minY: ((state.latestWeight - 15) / 5).ceil() * 5,
       ),
     );
   }
@@ -476,8 +476,8 @@ class _AverageBodyWeightGraph extends StatelessWidget {
           ),
         ),
         borderData: FlBorderData(show: false),
-        maxY: ((state.latestWeight + 5) / 5).ceil() * 5,
-        minY: ((state.latestWeight - 20) / 5).ceil() * 5,
+        maxY: ((state.latestWeight + 10) / 5).ceil() * 5,
+        minY: ((state.latestWeight - 15) / 5).ceil() * 5,
         baselineX: DateTime(
                 DateTime.now().year, DateTime.now().month, DateTime.now().day)
             .subtract(Duration(days: state.rangeType.range))
@@ -555,8 +555,8 @@ class _DailyBodyWeightGraph extends StatelessWidget {
           ),
         ),
         borderData: FlBorderData(show: false),
-        maxY: ((state.latestWeight + 5) / 5).ceil() * 5,
-        minY: ((state.latestWeight - 20) / 5).ceil() * 5,
+        maxY: ((state.latestWeight + 10) / 5).ceil() * 5,
+        minY: ((state.latestWeight - 15) / 5).ceil() * 5,
         baselineX: DateTime(
                 DateTime.now().year, DateTime.now().month, DateTime.now().day)
             .subtract(Duration(days: state.rangeType.range))
@@ -593,7 +593,8 @@ class _DailyBodyWeightGraph extends StatelessWidget {
               getDotPainter: (spot, percent, barData, index) {
                 return FlDotCirclePainter(
                   radius: 4,
-                  color: state.rangeType == DateRangeType.year
+                  color: state.rangeType == DateRangeType.year ||
+                          state.rangeType == DateRangeType.twoYears
                       ? Colors.transparent
                       : themeScheme.inversePrimary,
                 );
@@ -773,7 +774,8 @@ class _DailyBodyFatPercentageGraph extends StatelessWidget {
               getDotPainter: (spot, percent, barData, index) {
                 return FlDotCirclePainter(
                   radius: 4,
-                  color: state.rangeType == DateRangeType.year
+                  color: state.rangeType == DateRangeType.year ||
+                          state.rangeType == DateRangeType.twoYears
                       ? Colors.transparent
                       : themeScheme.tertiaryContainer,
                 );
